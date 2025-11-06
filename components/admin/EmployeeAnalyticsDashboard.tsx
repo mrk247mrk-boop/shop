@@ -1,25 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { getCurrentEmployee, getAllEmployees } from "@/actions/employeeActions";
+import { getAllEmployees, getCurrentEmployee } from "@/actions/employeeActions";
 import { getOrdersForEmployee } from "@/actions/orderEmployeeActions";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 import {
   Employee,
   OrderWithTracking,
   getRoleDisplayName,
 } from "@/types/employee";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  DollarSign,
-  Package,
-  TrendingUp,
-  Users,
-  CheckCircle,
-  Clock,
-  Truck,
-  AlertCircle,
-} from "lucide-react";
+import { AlertCircle, Clock, Package, TrendingUp } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function EmployeeAnalyticsDashboard() {
   const [employee, setEmployee] = useState<Employee | null>(null);
@@ -110,7 +101,7 @@ export default function EmployeeAnalyticsDashboard() {
               <p className="text-sm text-gray-600 mb-1">Total Revenue</p>
               <p className="text-2xl font-bold">${totalRevenue.toFixed(2)}</p>
             </div>
-            <DollarSign className="h-12 w-12 text-green-500" />
+            <span className="text-gray-600 font-bold">৳</span>
           </div>
         </Card>
 
@@ -206,8 +197,8 @@ export default function EmployeeAnalyticsDashboard() {
                         emp.status === "active"
                           ? "default"
                           : emp.status === "suspended"
-                          ? "destructive"
-                          : "secondary"
+                            ? "destructive"
+                            : "secondary"
                       }
                     >
                       {emp.status}

@@ -1,7 +1,16 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -10,22 +19,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { RefreshCw, Trash2, Eye, Package } from "lucide-react";
-import { OrdersSkeleton } from "./SkeletonLoaders";
+import { Eye, Package, RefreshCw, Trash2 } from "lucide-react";
+import React, { useCallback, useEffect, useState } from "react";
+import { handleApiError, safeApiCall } from "./apiHelpers";
 import { DeleteConfirmationDialog } from "./DeleteConfirmationDialog";
 import OrderDetailsSidebar from "./OrderDetailsSidebar";
+import { OrdersSkeleton } from "./SkeletonLoaders";
 import { Order } from "./types";
-import { safeApiCall, handleApiError } from "./apiHelpers";
 
 const AdminOrders: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -52,7 +52,7 @@ const AdminOrders: React.FC = () => {
   const formatCurrency = (amount: number): string => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "USD",
+      currency: "BDT",
     }).format(amount);
   };
 
@@ -289,7 +289,7 @@ const AdminOrders: React.FC = () => {
     <>
       <div className="space-y-4 p-4">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col md:flex-row gap-2 items-center justify-between">
           <h3 className="text-lg font-semibold">Orders Management</h3>
           <div className="flex items-center gap-2">
             <Select
@@ -371,7 +371,7 @@ const AdminOrders: React.FC = () => {
             <Card>
               <Table>
                 <TableHeader>
-                  <TableRow>
+                  <TableRow className="text-xs md:text-sm">
                     <TableHead className="w-12">
                       <Checkbox
                         checked={
@@ -392,7 +392,7 @@ const AdminOrders: React.FC = () => {
                 </TableHeader>
                 <TableBody>
                   {orders.length === 0 ? (
-                    <TableRow>
+                    <TableRow className="text-xs md:text-sm">
                       <TableCell colSpan={8} className="text-center py-12">
                         <div className="flex flex-col items-center gap-2">
                           <Package className="h-12 w-12 text-gray-400" />
@@ -412,7 +412,7 @@ const AdminOrders: React.FC = () => {
                     </TableRow>
                   ) : (
                     orders.map((order) => (
-                      <TableRow key={order._id}>
+                      <TableRow key={order._id} className="text-xs md:text-sm">
                         <TableCell>
                           <Checkbox
                             checked={selectedOrders.includes(order._id)}

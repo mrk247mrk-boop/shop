@@ -1,21 +1,21 @@
 "use client";
 
-import { useState, useTransition, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import ResponsiveOrdersComponent from "@/components/ResponsiveOrdersComponent";
 import { Card } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-  PaginationEllipsis,
 } from "@/components/ui/pagination";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MY_ORDERS_QUERYResult } from "@/sanity.types";
+import { useRouter } from "next/navigation";
+import { useEffect, useState, useTransition } from "react";
 
 interface OrdersClientProps {
   initialOrders: MY_ORDERS_QUERYResult;
@@ -93,7 +93,7 @@ export default function OrdersClient({
         {isPending && !isInitialLoad ? (
           // Show only orders skeleton for pagination loading
           <Card className="overflow-hidden">
-            <div className="p-4 space-y-6">
+            <div className="  space-y-6">
               {Array(5)
                 .fill(0)
                 .map((_, index) => (
@@ -139,9 +139,9 @@ export default function OrdersClient({
             </div>
           </Card>
         ) : orders && orders.length > 0 ? (
-          <Card className="overflow-hidden">
+          <Card className="overflow-hidden p-4">
             <ScrollArea className="h-full">
-              <div className="p-4">
+              <div className=" ">
                 <ResponsiveOrdersComponent orders={orders} />
               </div>
             </ScrollArea>

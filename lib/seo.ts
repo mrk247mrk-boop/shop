@@ -1,8 +1,8 @@
-import { Metadata } from "next";
-import { Product, Category } from "@/sanity.types";
+import { Category, Product } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
+import { Metadata } from "next";
 
-const BASE_URL = "https://shopcartpro.reactbd.org";
+const BASE_URL = "https://EasyTechpro.reactbd.org";
 
 /**
  * Generate metadata for product pages
@@ -11,7 +11,7 @@ export function generateProductMetadata(product: any): Metadata {
   const title = product.name || "Product";
   const description =
     product.description ||
-    `Buy ${title} online at ShopCart. ${
+    `Buy ${title} online at EasyTech. ${
       product.price ? `Price: $${product.price}` : ""
     }`;
   const imageUrl = product.images?.[0]
@@ -46,7 +46,7 @@ export function generateProductMetadata(product: any): Metadata {
           alt: title,
         },
       ],
-      siteName: "ShopCart",
+      siteName: "EasyTech",
     },
     twitter: {
       card: "summary_large_image",
@@ -70,7 +70,7 @@ export function generateCategoryMetadata(
   const title = category.title || "Category";
   const description =
     category.description ||
-    `Browse ${productCount} products in ${title} category at ShopCart. Find the best deals and quality items.`;
+    `Browse ${productCount} products in ${title} category at EasyTech. Find the best deals and quality items.`;
   const imageUrl = category.image
     ? urlFor(category.image).url()
     : "/og-image.jpg";
@@ -100,7 +100,7 @@ export function generateCategoryMetadata(
           alt: title,
         },
       ],
-      siteName: "ShopCart",
+      siteName: "EasyTech",
     },
     twitter: {
       card: "summary_large_image",
@@ -122,7 +122,7 @@ export function generateProductSchema(product: any) {
 
   // Extract brand name if it's populated
   const brandName =
-    typeof product.brand === "object" ? product.brand?.name : "ShopCart";
+    typeof product.brand === "object" ? product.brand?.name : "EasyTech";
 
   return {
     "@context": "https://schema.org",
@@ -188,7 +188,7 @@ export function generateOrganizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "ShopCart",
+    name: "EasyTech",
     url: BASE_URL,
     logo: `${BASE_URL}/logo.png`,
     description:
@@ -201,10 +201,10 @@ export function generateOrganizationSchema() {
       availableLanguage: "en",
     },
     sameAs: [
-      "https://facebook.com/shopcart",
-      "https://twitter.com/shopcart",
-      "https://instagram.com/shopcart",
-      "https://linkedin.com/company/shopcart",
+      "https://facebook.com/EasyTech",
+      "https://twitter.com/EasyTech",
+      "https://instagram.com/EasyTech",
+      "https://linkedin.com/company/EasyTech",
     ],
   };
 }
@@ -216,7 +216,7 @@ export function generateWebsiteSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "ShopCart",
+    name: "EasyTech",
     url: BASE_URL,
     potentialAction: {
       "@type": "SearchAction",
@@ -304,9 +304,9 @@ export function getCanonicalUrl(path: string): string {
  */
 export function generateHomeMetadata(): Metadata {
   return {
-    title: "ShopCart - Your Trusted Online Shopping Destination",
+    title: "EasyTech - Your Trusted Online Shopping Destination",
     description:
-      "Discover amazing products at ShopCart, your trusted online shopping destination for quality items and exceptional customer service. Shop electronics, fashion, home goods and more with fast delivery.",
+      "Discover amazing products at EasyTech, your trusted online shopping destination for quality items and exceptional customer service. Shop electronics, fashion, home goods and more with fast delivery.",
     keywords: [
       "online shopping",
       "e-commerce",
@@ -320,23 +320,23 @@ export function generateHomeMetadata(): Metadata {
     openGraph: {
       type: "website",
       url: BASE_URL,
-      title: "ShopCart - Your Trusted Online Shopping Destination",
+      title: "EasyTech - Your Trusted Online Shopping Destination",
       description:
-        "Discover amazing products at ShopCart. Shop electronics, fashion, home goods and more with fast delivery.",
+        "Discover amazing products at EasyTech. Shop electronics, fashion, home goods and more with fast delivery.",
       images: [
         {
           url: "/og-image.jpg",
           width: 1200,
           height: 630,
-          alt: "ShopCart Online Store",
+          alt: "EasyTech Online Store",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: "ShopCart - Your Trusted Online Shopping Destination",
+      title: "EasyTech - Your Trusted Online Shopping Destination",
       description:
-        "Discover amazing products at ShopCart. Shop electronics, fashion, home goods and more.",
+        "Discover amazing products at EasyTech. Shop electronics, fashion, home goods and more.",
       images: ["/og-image.jpg"],
     },
     alternates: {

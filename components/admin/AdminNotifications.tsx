@@ -1,11 +1,15 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -21,15 +25,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import {
-  Dialog,
-  DialogTitle,
-  DialogPortal,
-  DialogOverlay,
-} from "@/components/ui/dialog";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
-import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-import { cn } from "@/lib/utils";
-import {
   Table,
   TableBody,
   TableCell,
@@ -37,25 +32,30 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Textarea } from "@/components/ui/textarea";
+import { showToast } from "@/lib/toast";
+import { cn } from "@/lib/utils";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import {
+  AlertCircle,
   Bell,
-  Send,
-  Users,
+  CheckCircle,
+  ChevronLeft,
+  ChevronRight,
+  Clock,
   Eye,
   MessageSquare,
   Plus,
-  Search,
-  AlertCircle,
-  CheckCircle,
-  Clock,
   RefreshCw,
   RotateCcw,
+  Search,
+  Send,
   Trash2,
-  ChevronLeft,
-  ChevronRight,
+  Users,
 } from "lucide-react";
-import { safeApiCall, handleApiError } from "./apiHelpers";
-import { showToast } from "@/lib/toast";
+import React, { useCallback, useEffect, useState } from "react";
+import { handleApiError, safeApiCall } from "./apiHelpers";
 
 interface User {
   _id: string;
@@ -589,7 +589,7 @@ const AdminNotifications: React.FC<AdminNotificationsProps> = ({
   return (
     <div className="space-y-6 p-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center gap-2 justify-between">
         <div>
           <h1 className="text-2xl font-bold">Notification Management</h1>
           <p className="text-muted-foreground">
@@ -603,11 +603,11 @@ const AdminNotifications: React.FC<AdminNotificationsProps> = ({
               Send Notification
             </Button>
           </SheetTrigger>
-          <SheetContent className="w-[600px] sm:w-[600px] p-6" side="right">
+          <SheetContent className="w-full sm:w-[600px] p-6" side="right">
             <SheetHeader className="px-0">
               <SheetTitle>Send New Notification</SheetTitle>
             </SheetHeader>
-            <div className="space-y-4 mt-6 overflow-y-auto max-h-[calc(100vh-120px)] px-1">
+            <div className="space-y-4  overflow-y-auto max-h-[calc(100vh-120px)] px-1">
               {/* Notification Form */}
               <div className="space-y-4">
                 <div>
@@ -970,9 +970,9 @@ const AdminNotifications: React.FC<AdminNotificationsProps> = ({
       {/* Sent Notifications */}
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row  md:items-center gap-2 justify-between">
             <CardTitle>Sent Notifications</CardTitle>
-            <div className="flex items-center gap-2">
+            <div className="flex  flex-col md:items-center gap-2">
               {/* Refresh Button */}
               <Button
                 variant="outline"
@@ -994,7 +994,7 @@ const AdminNotifications: React.FC<AdminNotificationsProps> = ({
                 value={notificationTypeFilter}
                 onValueChange={handleTypeFilterChange}
               >
-                <SelectTrigger className="w-32">
+                <SelectTrigger className="w-full md:w-32">
                   <SelectValue placeholder="Type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -1012,7 +1012,7 @@ const AdminNotifications: React.FC<AdminNotificationsProps> = ({
                 value={notificationPriorityFilter}
                 onValueChange={handlePriorityFilterChange}
               >
-                <SelectTrigger className="w-32">
+                <SelectTrigger className="w-full md:w-32">
                   <SelectValue placeholder="Priority" />
                 </SelectTrigger>
                 <SelectContent>
@@ -1029,7 +1029,7 @@ const AdminNotifications: React.FC<AdminNotificationsProps> = ({
                 value={notificationDateFilter}
                 onValueChange={handleDateFilterChange}
               >
-                <SelectTrigger className="w-32">
+                <SelectTrigger className="w-full md:w-32">
                   <SelectValue placeholder="Date" />
                 </SelectTrigger>
                 <SelectContent>

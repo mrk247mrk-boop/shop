@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useUser } from "@clerk/nextjs";
-import { Mail, Loader2, CheckCircle2, XCircle } from "lucide-react";
+import { checkSubscriptionStatus } from "@/actions/subscriptionActions";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,9 +9,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { useUser } from "@clerk/nextjs";
+import { CheckCircle2, Loader2, Mail, XCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { checkSubscriptionStatus } from "@/actions/subscriptionActions";
 
 export default function NewsletterSubscription() {
   const { user } = useUser();
@@ -141,7 +141,7 @@ export default function NewsletterSubscription() {
           Manage your newsletter subscription preferences
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 p-4">
         {/* Current Status */}
         <div className="flex items-center justify-between p-4 rounded-lg border bg-gray-50">
           <div className="flex items-center space-x-3">
@@ -156,7 +156,7 @@ export default function NewsletterSubscription() {
                   <p className="font-medium text-gray-900">
                     Subscribed to Newsletter
                   </p>
-                  <p className="text-sm text-gray-600">{userEmail}</p>
+                  <p className="text-xs text-gray-600">{userEmail}</p>
                 </div>
               </>
             ) : (
@@ -168,7 +168,7 @@ export default function NewsletterSubscription() {
                 </div>
                 <div>
                   <p className="font-medium text-gray-900">Not Subscribed</p>
-                  <p className="text-sm text-gray-600">{userEmail}</p>
+                  <p className="text-xs text-gray-600">{userEmail}</p>
                 </div>
               </>
             )}

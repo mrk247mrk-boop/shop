@@ -1,28 +1,27 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Badge } from "./ui/badge";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 import {
   CheckCircle,
+  ClipboardCheck,
   Clock,
   MapPin,
   Package,
-  Truck,
-  DollarSign,
-  ClipboardCheck,
   PackageCheck,
+  Truck,
   XCircle,
 } from "lucide-react";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
+import React, { useEffect, useState } from "react";
+import { Badge } from "./ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 interface TimelineEvent {
   title: string;
   description?: string;
   date?: string;
   status: "completed" | "pending" | "current";
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   employee?: string;
 }
 
@@ -197,14 +196,12 @@ const OrderTimeline: React.FC<OrderTimelineProps> = ({ order }) => {
           description: "Cash on delivery payment received",
           date: order.cashCollectedAt,
           status: "completed",
-          icon: <DollarSign className="w-5 h-5" />,
         });
       } else {
         events.push({
           title: "Payment Collection",
           description: "Cash payment will be collected on delivery",
           status: isDispatched ? "current" : "pending",
-          icon: <DollarSign className="w-5 h-5" />,
         });
       }
     } else if (order.paymentCompletedAt && !isCashCollected) {
@@ -214,7 +211,6 @@ const OrderTimeline: React.FC<OrderTimelineProps> = ({ order }) => {
         description: "Payment completed online",
         date: order.paymentCompletedAt,
         status: "completed",
-        icon: <DollarSign className="w-5 h-5" />,
       });
     }
 
@@ -307,7 +303,7 @@ const OrderTimeline: React.FC<OrderTimelineProps> = ({ order }) => {
                     transitionDelay: `${index * 100}ms`,
                   }}
                 >
-                  {event.icon}
+                  <span className="text-lg font-bold">৳</span>
 
                   {/* Ripple effect for current status */}
                   {event.status === "current" && (

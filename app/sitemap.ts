@@ -1,7 +1,7 @@
-import { MetadataRoute } from "next";
 import { client } from "@/sanity/lib/client";
+import { MetadataRoute } from "next";
 
-const BASE_URL = "https://shopcartpro.reactbd.org";
+const BASE_URL = "https://EasyTechpro.reactbd.org";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch all products

@@ -1,9 +1,9 @@
 import { Category } from "@/sanity.types";
+import { urlFor } from "@/sanity/lib/image";
+import Image from "next/image";
+import Link from "next/link";
 import Container from "./Container";
 import Title from "./Title";
-import Link from "next/link";
-import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
 
 interface Props {
   categories: Category[];
@@ -15,11 +15,11 @@ const HomeCategories = ({ categories }: Props) => {
       {/* Header Section */}
       <div className="text-center mb-12">
         <div className="inline-flex items-center gap-3 mb-4">
-          <div className="h-1 w-12 bg-gradient-to-r from-shop_light_blue to-shop_dark_blue rounded-full"></div>
+          <div className="h-1 w-12 bg-linear-to-r from-shop_light_blue to-shop_dark_blue rounded-full"></div>
           <Title className="text-3xl lg:text-4xl font-bold text-dark-color">
             Popular Categories
           </Title>
-          <div className="h-1 w-12 bg-gradient-to-l from-shop_light_blue to-shop_dark_blue rounded-full"></div>
+          <div className="h-1 w-12 bg-linear-to-l from-shop_light_blue to-shop_dark_blue rounded-full"></div>
         </div>
         <p className="text-light-color text-lg max-w-2xl mx-auto">
           Explore our most popular product categories and find what you need
@@ -46,7 +46,7 @@ const HomeCategories = ({ categories }: Props) => {
       </div>
 
       {/* Categories Grid */}
-      <div className="bg-gradient-to-br from-white via-shop_light_bg to-shop_light_pink p-8 lg:p-12 rounded-3xl shadow-xl border border-shop_light_blue/20">
+      <div className="bg-linear-to-br from-white via-shop_light_bg to-shop_light_pink p-8 lg:p-12 rounded-3xl shadow-xl border border-shop_light_blue/20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {categories?.map((category, index) => (
             <Link

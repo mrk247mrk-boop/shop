@@ -1,13 +1,13 @@
-import { memo } from "react";
 import { Product } from "@/sanity.types";
-import PriceView from "./PriceView";
-import Link from "next/link";
-import AddToCartButton from "./AddToCartButton";
-import Title from "./Title";
-import { StarIcon } from "@sanity/icons";
-import ProductSideMenu from "./ProductSideMenu";
-import { Flame } from "lucide-react";
 import { image } from "@/sanity/image";
+import { StarIcon } from "@sanity/icons";
+import { Flame } from "lucide-react";
+import Link from "next/link";
+import { memo } from "react";
+import AddToCartButton from "./AddToCartButton";
+import PriceView from "./PriceView";
+import ProductSideMenu from "./ProductSideMenu";
+import Title from "./Title";
 
 const ProductCard = memo(({ product }: { product: Product }) => {
   return (

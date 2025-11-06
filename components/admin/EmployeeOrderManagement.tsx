@@ -1,29 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import {
-  getOrdersForEmployee,
-  confirmAddress,
-  confirmOrder,
-  markAsPacked,
-  assignDeliveryman,
-  markAsDelivered,
-  receivePaymentFromDeliveryman,
-} from "@/actions/orderEmployeeActions";
 import {
   getCurrentEmployee,
   getEmployeesByRole,
 } from "@/actions/employeeActions";
 import {
-  Employee,
-  OrderWithTracking,
-  getRoleDisplayName,
-} from "@/types/employee";
-import { Button } from "@/components/ui/button";
+  assignDeliveryman,
+  confirmAddress,
+  confirmOrder,
+  getOrdersForEmployee,
+  markAsDelivered,
+  markAsPacked,
+  receivePaymentFromDeliveryman,
+} from "@/actions/orderEmployeeActions";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -32,6 +23,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -39,18 +32,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { toast } from "sonner";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Employee,
+  OrderWithTracking,
+  getRoleDisplayName,
+} from "@/types/employee";
 import {
   CheckCircle,
-  Package,
-  Truck,
-  DollarSign,
   Clock,
   MapPin,
-  User,
-  Phone,
+  Package,
   RefreshCw,
+  Truck,
+  User,
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function EmployeeOrderManagement() {
   const [employee, setEmployee] = useState<Employee | null>(null);
@@ -381,7 +379,7 @@ export default function EmployeeOrderManagement() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
                     <p className="text-sm text-gray-600 flex items-center gap-2">
-                      <DollarSign className="h-4 w-4" />
+                      <span className="text-gray-600 font-bold">৳</span>
                       <span className="font-semibold">Amount:</span> $
                       {order.totalPrice}
                     </p>
@@ -508,7 +506,7 @@ export default function EmployeeOrderManagement() {
                       onClick={() => openActionDialog(order, "receivePayment")}
                       className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700"
                     >
-                      <DollarSign className="h-4 w-4" />
+                      <span className="text-gray-600 font-bold">৳</span>
                       Receive Payment
                     </Button>
                   )}

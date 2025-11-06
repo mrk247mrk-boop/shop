@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useState, useCallback } from "react";
-import { useUser } from "@clerk/nextjs";
-import { ServerCartContent } from "./ServerCartContent";
-import { CartSkeleton } from "./CartSkeleton";
 import { trackCartView } from "@/lib/analytics";
+import { useUser } from "@clerk/nextjs";
+import { useCallback, useEffect, useState } from "react";
+import { CartSkeleton } from "./CartSkeleton";
+import { ServerCartContent } from "./ServerCartContent";
 
 interface Address {
   _id: string;

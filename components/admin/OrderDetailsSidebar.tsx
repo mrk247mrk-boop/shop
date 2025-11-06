@@ -1,19 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -21,22 +12,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
 import {
-  Package,
-  User,
-  CreditCard,
-  MapPin,
-  Calendar,
-  DollarSign,
-  Truck,
-  Save,
-  X,
-} from "lucide-react";
-import { Order } from "./types";
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import { Textarea } from "@/components/ui/textarea";
+import { trackOrderDetails, trackOrderFullfillment } from "@/lib/analytics";
 import { showToast } from "@/lib/toast";
-import { trackOrderFullfillment, trackOrderDetails } from "@/lib/analytics";
+import { Calendar, Package, Save, Truck, User, X } from "lucide-react";
+import React, { useState } from "react";
 import { OrderDetailsSkeleton } from "./SkeletonLoaders";
+import { Order } from "./types";
 
 interface OrderDetailsSidebarProps {
   isOpen: boolean;
@@ -91,7 +80,7 @@ const OrderDetailsSidebar: React.FC<OrderDetailsSidebarProps> = ({
   const formatCurrency = (amount: number): string => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "USD",
+      currency: "BDT",
     }).format(amount);
   };
 
@@ -227,11 +216,11 @@ const OrderDetailsSidebar: React.FC<OrderDetailsSidebarProps> = ({
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent
-        className="w-[60vw] max-w-3xl md:max-w-4xl xl:max-w-5xl overflow-y-auto px-6 py-8"
+        className="w-full sm:max-w-2xl   overflow-y-auto px-6 py-8"
         onInteractOutside={handleInteractOutside}
       >
         <SheetHeader>
-          <SheetTitle className="flex items-center gap-2">
+          <SheetTitle className="flex items-center text-sm md:text-lg gap-2">
             <Package className="w-5 h-5" />
             {order
               ? `Order Details - #${order.orderNumber}`
@@ -465,7 +454,7 @@ const OrderDetailsSidebar: React.FC<OrderDetailsSidebarProps> = ({
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label className="text-sm font-medium">Name</Label>
                     <p className="text-sm">{order.customerName}</p>
@@ -482,12 +471,12 @@ const OrderDetailsSidebar: React.FC<OrderDetailsSidebarProps> = ({
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <DollarSign className="w-4 h-4" />
+                  <span className="text-gray-600 font-bold">৳</span>
                   Financial Details
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1  md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="totalPrice">Total Amount</Label>
                     <Input
@@ -518,7 +507,7 @@ const OrderDetailsSidebar: React.FC<OrderDetailsSidebarProps> = ({
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label className="text-sm font-medium">Currency</Label>
-                    <p className="text-sm">{order.currency || "USD"}</p>
+                    <p className="text-sm"> BDT</p>
                   </div>
                   <div>
                     <Label className="text-sm font-medium">Subtotal</Label>
@@ -793,7 +782,7 @@ const OrderDetailsSidebar: React.FC<OrderDetailsSidebarProps> = ({
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <DollarSign className="w-4 h-4" />
+                  <span className="text-gray-600 font-bold">৳</span>
                   Cash Collection
                 </CardTitle>
               </CardHeader>

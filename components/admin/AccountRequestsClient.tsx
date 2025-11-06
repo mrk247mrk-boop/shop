@@ -1,11 +1,19 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import AccountRequestsOverview from "@/components/admin/AccountRequestsOverview";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -14,32 +22,24 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogPortal,
-  DialogOverlay,
-} from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-import { cn } from "@/lib/utils";
 import {
-  Crown,
-  Building2,
-  CheckCircle,
-  XCircle,
-  Clock,
-  Mail,
-  Calendar,
   AlertTriangle,
+  Building2,
+  Calendar,
+  CheckCircle,
+  Clock,
+  Crown,
+  Mail,
   RefreshCw,
+  XCircle,
 } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
-import AccountRequestsOverview from "@/components/admin/AccountRequestsOverview";
 
 interface UserRequest {
   _id: string;
@@ -899,10 +899,12 @@ export default function AccountRequestsClient() {
   };
 
   return (
-    <div className="p-6 space-y-8 max-w-7xl mx-auto">
-      <div className="flex items-center justify-between">
+    <div className="p-4 space-y-8 max-w-7xl mx-auto">
+      <div className="flex flex-wrap gap-2 items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Account Requests</h1>
+          <h1 className=" text-lg md:text-3xl font-bold text-gray-900">
+            Account Requests
+          </h1>
           <p className="text-gray-600 mt-1">
             Manage premium and business account applications
           </p>
@@ -924,7 +926,7 @@ export default function AccountRequestsClient() {
       <AccountRequestsOverview stats={stats} />
 
       <Tabs defaultValue="premium" className="space-y-6">
-        <TabsList className="grid w-full max-w-4xl grid-cols-3">
+        <TabsList className="grid w-full max-w-4xl grid-cols-1 p-2 h-full md:grid-cols-3">
           <TabsTrigger value="premium" className="flex items-center gap-2">
             <Crown className="w-4 h-4" />
             Premium Requests ({premiumRequests.length})

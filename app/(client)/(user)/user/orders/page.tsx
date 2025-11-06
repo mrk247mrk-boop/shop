@@ -1,8 +1,8 @@
+import OrdersClient from "@/components/OrdersClient";
+import Title from "@/components/Title";
+import { getMyOrders } from "@/sanity/helpers";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { getMyOrders } from "@/sanity/helpers";
-import Title from "@/components/Title";
-import OrdersClient from "@/components/OrdersClient";
 
 interface OrdersPageProps {
   searchParams: Promise<{

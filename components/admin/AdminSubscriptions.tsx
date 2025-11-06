@@ -1,18 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import {
-  Mail,
-  Trash2,
-  Search,
-  Calendar,
-  Filter,
-  Download,
-  AlertTriangle,
-  X,
-  RefreshCw,
-  Copy,
-} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -20,7 +9,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -29,17 +23,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Dialog,
-  DialogPortal,
-  DialogOverlay,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+import {
+  AlertTriangle,
+  Calendar,
+  Copy,
+  Download,
+  Filter,
+  Mail,
+  RefreshCw,
+  Search,
+  Trash2,
+  X,
+} from "lucide-react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
 
 interface Subscription {
   _id: string;
@@ -261,11 +261,11 @@ export default function AdminSubscriptions() {
   );
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap gap-4 items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
+          <h1 className=" text-lg md:text-3xl font-bold text-gray-900 flex items-center gap-2">
             <Mail className="h-8 w-8 text-shop_dark_green" />
             Newsletter Subscriptions
           </h1>
@@ -273,7 +273,7 @@ export default function AdminSubscriptions() {
             Manage and monitor all newsletter subscriptions
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Button
             onClick={handleCleanupDuplicates}
             variant="outline"
@@ -426,7 +426,7 @@ export default function AdminSubscriptions() {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b">
+                    <tr className="border-b text-xs md:text-sm">
                       <th className="text-left p-4 font-semibold text-gray-900">
                         Email
                       </th>
@@ -463,7 +463,7 @@ export default function AdminSubscriptions() {
                           key={subscription._id}
                           className="border-b hover:bg-gray-50 transition-colors"
                         >
-                          <td className="p-4">
+                          <td className="p-4  text-xs md:text-sm">
                             <div className="flex items-center gap-2">
                               <Mail className="h-4 w-4 text-gray-400" />
                               <span className="font-medium">
@@ -471,21 +471,21 @@ export default function AdminSubscriptions() {
                               </span>
                             </div>
                           </td>
-                          <td className="p-4">
+                          <td className="p-4  text-xs md:text-sm">
                             {getStatusBadge(subscription.status)}
                           </td>
                           <td className="p-4">
                             {getSourceBadge(subscription.source)}
                           </td>
                           <td className="p-4">
-                            <div className="flex items-center gap-2 text-sm text-gray-600">
+                            <div className="flex items-center gap-2 text-xs md:text-sm text-gray-600">
                               <Calendar className="h-4 w-4" />
                               {new Date(
                                 subscription.subscribedAt
                               ).toLocaleDateString()}
                             </div>
                           </td>
-                          <td className="p-4 text-sm text-gray-600">
+                          <td className="p-4  text-xs md:text-sm text-gray-600">
                             {subscription.ipAddress || "N/A"}
                           </td>
                           <td className="p-4 text-right">

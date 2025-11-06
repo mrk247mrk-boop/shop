@@ -1,4 +1,5 @@
 import Container from "@/components/Container";
+import CategoryProducts from "@/components/product/CategoryProducts";
 import Title from "@/components/Title";
 import {
   Breadcrumb,
@@ -8,29 +9,27 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { getCategories } from "@/sanity/queries";
+import {
+  generateBreadcrumbSchema,
+  generateCategoryMetadata,
+  generateItemListSchema,
+} from "@/lib/seo";
 import { Category, Product } from "@/sanity.types";
+import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
-import Image from "next/image";
-import Link from "next/link";
+import { getCategories } from "@/sanity/queries";
 import {
   ArrowLeft,
   ArrowRight,
+  Filter,
+  Grid3X3,
   Package,
   Tag,
-  Grid3X3,
-  Filter,
   TrendingUp,
 } from "lucide-react";
-import React from "react";
-import CategoryProducts from "@/components/product/CategoryProducts";
-import { client } from "@/sanity/lib/client";
 import { Metadata } from "next";
-import {
-  generateCategoryMetadata,
-  generateBreadcrumbSchema,
-  generateItemListSchema,
-} from "@/lib/seo";
+import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -73,14 +72,15 @@ const CategoryPage = async ({
 
   // Fetch products for the current category
   const query = `
-    *[_type == "product" && references(*[_type == "category" && slug.current == $slug]._id)] {
-      ...,
-      brand->{
-        _id,
-        name
-      }
-    }
-  `;
+  *[_type == "product" && references(*[_type == "category" && slug.current == $slug]._id)] {
+    ...,
+    brand->{
+      _id,
+      name
+    },
+    ...,"categories": categories[]->title
+  }
+`;
   const products: Product[] = await client.fetch(query, { slug });
 
   // Find the current category to get its proper title

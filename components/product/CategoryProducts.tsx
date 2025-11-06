@@ -1,13 +1,13 @@
 "use client";
 import { Category, Product } from "@/sanity.types";
-import { Button } from "../ui/button";
-import { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
-import { motion } from "motion/react";
 import { Grid3X3 } from "lucide-react";
-import ProductCard from "../ProductCard";
-import NoProductAvailable from "./NoProductAvailable";
+import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import ProductCard from "../ProductCard";
+import { Button } from "../ui/button";
+import NoProductAvailable from "./NoProductAvailable";
 
 interface Props {
   categories: Category[];
@@ -138,7 +138,7 @@ const CategoryProducts = ({ categories, slug, initialProducts }: Props) => {
 
             {/* Products Grid */}
             <motion.div
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2.5"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.1 }}

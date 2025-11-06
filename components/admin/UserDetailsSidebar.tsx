@@ -1,6 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
   SheetContent,
@@ -8,23 +11,19 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Card } from "@/components/ui/card";
 import { showToast } from "@/lib/toast";
 import {
-  UserCheck,
-  UserX,
-  Mail,
+  Bell,
   Calendar,
   Clock,
   Database,
   Gift,
-  DollarSign,
-  Bell,
+  Mail,
   RefreshCw,
+  UserCheck,
+  UserX,
 } from "lucide-react";
+import React, { useState } from "react";
 
 interface CombinedUser {
   id: string;
@@ -304,7 +303,7 @@ export const UserDetailsSidebar: React.FC<UserDetailsSidebarProps> = ({
                       </div>
                       <div className="text-center">
                         <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground mb-1">
-                          <DollarSign className="h-3 w-3" />
+                          <span className="text-gray-600 font-bold">৳</span>
                           Total Spent
                         </div>
                         <div className="text-lg font-semibold">

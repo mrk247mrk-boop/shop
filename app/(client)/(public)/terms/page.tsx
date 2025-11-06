@@ -1,29 +1,29 @@
 "use client";
 
-import { motion } from "motion/react";
-import {
-  FileText,
-  ShoppingCart,
-  Shield,
-  CreditCard,
-  Truck,
-  AlertCircle,
-  CheckCircle2,
-  Calendar,
-  Mail,
-  Scale,
-} from "lucide-react";
 import Container from "@/components/Container";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import {
+  AlertCircle,
+  Calendar,
+  CheckCircle2,
+  CreditCard,
+  FileText,
+  Mail,
+  Scale,
+  Shield,
+  ShoppingCart,
+  Truck,
+} from "lucide-react";
+import { motion } from "motion/react";
 import Link from "next/link";
 
 const TermsPage = () => {
@@ -41,8 +41,8 @@ const TermsPage = () => {
       title: "Acceptance of Terms",
       icon: CheckCircle2,
       content: [
-        "By accessing and using ShopCart&apos;s website and services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.",
-        "These terms constitute a legally binding agreement between you and ShopCart. If you do not agree with any part of these terms, you must not use our services.",
+        "By accessing and using EasyTech&apos;s website and services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.",
+        "These terms constitute a legally binding agreement between you and EasyTech. If you do not agree with any part of these terms, you must not use our services.",
         "We may update these terms from time to time. Continued use of our services after changes indicates your acceptance of the modified terms.",
         "These terms apply to all users, including browsers, vendors, customers, merchants, and contributors of content.",
       ],
@@ -107,7 +107,7 @@ const TermsPage = () => {
       title: "Intellectual Property Rights",
       icon: FileText,
       content: [
-        "All content, trademarks, logos, and intellectual property on our website are owned by ShopCart or our licensors and are protected by copyright and trademark laws.",
+        "All content, trademarks, logos, and intellectual property on our website are owned by EasyTech or our licensors and are protected by copyright and trademark laws.",
         "You may not reproduce, distribute, modify, or create derivative works from our content without explicit written permission.",
         "Product images, descriptions, and reviews are provided for informational purposes and may be subject to third-party intellectual property rights.",
         "If you believe your intellectual property rights have been infringed, please contact us with detailed information about the alleged infringement.",
@@ -142,7 +142,7 @@ const TermsPage = () => {
             </h1>
             <p className="text-xl text-white/90 max-w-3xl mx-auto">
               Please read these terms carefully before using our services. They
-              outline your rights and responsibilities as a ShopCart user.
+              outline your rights and responsibilities as a EasyTech user.
             </p>
             <Badge className="mt-6 bg-white/20 text-white border-white/30">
               Last updated: January 2024
@@ -278,10 +278,10 @@ const TermsPage = () => {
                 <p className="text-sm text-light-text mt-6">
                   For immediate assistance, email us at{" "}
                   <a
-                    href="mailto:legal@shopcart.com"
+                    href="mailto:legal@EasyTech.com"
                     className="text-shop_light_green hover:underline"
                   >
-                    legal@shopcart.com
+                    legal@EasyTech.com
                   </a>
                 </p>
               </CardContent>
@@ -301,7 +301,7 @@ const TermsPage = () => {
               </p>
             </div>
             <p className="text-xs text-light-text">
-              By continuing to use ShopCart, you agree to the most current
+              By continuing to use EasyTech, you agree to the most current
               version of these terms.
             </p>
           </div>

@@ -1,31 +1,31 @@
 "use client";
 
-import { motion } from "motion/react";
-import {
-  Shield,
-  Eye,
-  Lock,
-  Cookie,
-  Database,
-  UserCheck,
-  AlertTriangle,
-  Download,
-  Trash2,
-  Settings,
-  Mail,
-  Clock,
-} from "lucide-react";
 import Container from "@/components/Container";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import {
+  AlertTriangle,
+  Clock,
+  Cookie,
+  Database,
+  Download,
+  Eye,
+  Lock,
+  Mail,
+  Settings,
+  Shield,
+  Trash2,
+  UserCheck,
+} from "lucide-react";
+import { motion } from "motion/react";
 import Link from "next/link";
 
 const PrivacyPage = () => {
@@ -518,10 +518,10 @@ const PrivacyPage = () => {
                 <p className="text-sm text-light-text mt-6">
                   Email us directly at{" "}
                   <a
-                    href="mailto:privacy@shopcart.com"
+                    href="mailto:privacy@EasyTech.com"
                     className="text-shop_light_green hover:underline"
                   >
-                    privacy@shopcart.com
+                    privacy@EasyTech.com
                   </a>
                 </p>
               </CardContent>

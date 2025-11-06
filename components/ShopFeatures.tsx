@@ -1,20 +1,20 @@
 "use client";
 
-import { useState } from "react";
-import Container from "./Container";
-import Title from "./Title";
-import FeatureModal from "./FeatureModal";
 import {
-  ShieldCheck,
-  Truck,
-  CreditCard,
-  Headphones,
-  RefreshCw,
   Award,
   Clock,
+  CreditCard,
+  Headphones,
   Heart,
   LucideIcon,
+  RefreshCw,
+  ShieldCheck,
+  Truck,
 } from "lucide-react";
+import { useState } from "react";
+import Container from "./Container";
+import FeatureModal from "./FeatureModal";
+import Title from "./Title";
 
 interface FeatureType {
   icon: LucideIcon;
@@ -235,11 +235,11 @@ const ShopFeatures = () => {
       {/* Header Section */}
       <div className="text-center mb-12">
         <div className="inline-flex items-center gap-3 mb-4">
-          <div className="h-1 w-12 bg-gradient-to-r from-shop_light_blue to-shop_dark_blue rounded-full"></div>
+          <div className="h-1 w-12 bg-linear-to-r from-shop_light_blue to-shop_dark_blue rounded-full"></div>
           <Title className="text-3xl lg:text-4xl font-bold text-dark-color">
             Why Shop With Us
           </Title>
-          <div className="h-1 w-12 bg-gradient-to-l from-shop_light_blue to-shop_dark_blue rounded-full"></div>
+          <div className="h-1 w-12 bg-linear-to-l from-shop_light_blue to-shop_dark_blue rounded-full"></div>
         </div>
         <p className="text-light-color text-lg max-w-2xl mx-auto">
           Experience the best online shopping with our commitment to quality,
@@ -248,7 +248,7 @@ const ShopFeatures = () => {
       </div>
 
       {/* Features Grid */}
-      <div className="bg-gradient-to-br from-white via-shop_light_bg to-shop_light_pink p-8 lg:p-12 rounded-3xl shadow-xl border border-shop_light_blue/20">
+      <div className="bg-linear-to-br from-white via-shop_light_bg to-shop_light_pink p-8 lg:p-12 rounded-3xl shadow-xl border border-shop_light_blue/20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
@@ -267,7 +267,7 @@ const ShopFeatures = () => {
                     <IconComponent
                       className={`w-8 h-8 ${feature.iconColor} group-hover:scale-110 hoverEffect`}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-shop_light_blue/10 to-transparent opacity-0 group-hover:opacity-100 hoverEffect rounded-2xl"></div>
+                    <div className="absolute inset-0 bg-linear-to-t from-shop_light_blue/10 to-transparent opacity-0 group-hover:opacity-100 hoverEffect rounded-2xl"></div>
                   </div>
                 </div>
 
@@ -287,7 +287,7 @@ const ShopFeatures = () => {
                 {/* Decorative Bottom Bar */}
                 <div className="mt-4 w-full bg-gray-100 rounded-full h-1.5">
                   <div
-                    className={`bg-gradient-to-r ${feature.color} h-1.5 rounded-full hoverEffect group-hover:w-full transition-all duration-500`}
+                    className={`bg-linear-to-r ${feature.color} h-1.5 rounded-full hoverEffect group-hover:w-full transition-all duration-500`}
                     style={{ width: "40%" }}
                   ></div>
                 </div>
@@ -300,7 +300,7 @@ const ShopFeatures = () => {
         <div className="mt-12 pt-8 border-t border-shop_light_blue/20">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-shop_dark_blue to-shop_light_blue bg-clip-text text-transparent mb-2">
+              <div className="text-3xl font-bold bg-linear-to-r from-shop_dark_blue to-shop_light_blue bg-clip-text text-transparent mb-2">
                 50K+
               </div>
               <div className="text-sm text-light-color font-medium">
@@ -308,7 +308,7 @@ const ShopFeatures = () => {
               </div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-shop_dark_blue to-shop_light_blue bg-clip-text text-transparent mb-2">
+              <div className="text-3xl font-bold bg-linear-to-r from-shop_dark_blue to-shop_light_blue bg-clip-text text-transparent mb-2">
                 100K+
               </div>
               <div className="text-sm text-light-color font-medium">
@@ -316,7 +316,7 @@ const ShopFeatures = () => {
               </div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-shop_dark_blue to-shop_light_blue bg-clip-text text-transparent mb-2">
+              <div className="text-3xl font-bold bg-linear-to-r from-shop_dark_blue to-shop_light_blue bg-clip-text text-transparent mb-2">
                 99%
               </div>
               <div className="text-sm text-light-color font-medium">
@@ -324,7 +324,7 @@ const ShopFeatures = () => {
               </div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-shop_dark_blue to-shop_light_blue bg-clip-text text-transparent mb-2">
+              <div className="text-3xl font-bold bg-linear-to-r from-shop_dark_blue to-shop_light_blue bg-clip-text text-transparent mb-2">
                 24/7
               </div>
               <div className="text-sm text-light-color font-medium">
@@ -336,7 +336,7 @@ const ShopFeatures = () => {
 
         {/* Trust Badge */}
         <div className="text-center mt-8">
-          <div className="inline-flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-shop_light_pink to-shop_light_bg rounded-2xl border border-shop_light_blue/20 shadow-md">
+          <div className="inline-flex flex-wrap items-center gap-4 px-8 py-4 bg-linear-to-r from-shop_light_pink to-shop_light_bg rounded-2xl border border-shop_light_blue/20 shadow-md">
             <ShieldCheck className="w-6 h-6 text-shop_dark_blue" />
             <span className="text-dark-text font-semibold">
               Trusted by thousands of satisfied customers worldwide

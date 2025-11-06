@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,20 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  StarIcon,
-  CheckCircle,
-  XCircle,
-  Eye,
-  Clock,
-  Check,
-  RefreshCw,
-} from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Textarea } from "@/components/ui/textarea";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Dialog,
   DialogContent,
@@ -30,14 +18,26 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
 import {
-  getReviewsByStatusAPI,
-  approveReviewAPI,
-  rejectReviewAPI,
   AdminReview,
+  approveReviewAPI,
+  getReviewsByStatusAPI,
+  rejectReviewAPI,
 } from "@/lib/adminReviewAPI";
-import { toast } from "sonner";
+import {
+  Check,
+  CheckCircle,
+  Clock,
+  Eye,
+  RefreshCw,
+  StarIcon,
+  XCircle,
+} from "lucide-react";
 import Link from "next/link";
+import React, { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const AdminReviews: React.FC = React.memo(() => {
   const [pendingReviews, setPendingReviews] = useState<AdminReview[]>([]);
@@ -138,7 +138,7 @@ const AdminReviews: React.FC = React.memo(() => {
     (review: AdminReview, isPending: boolean = true) => (
       <Card key={review._id} className="border-2">
         <CardContent className="pt-6">
-          <div className="flex items-start gap-4">
+          <div className="flex flex-col md:flex-row items-start gap-4">
             {/* User Avatar */}
             <Avatar className="h-12 w-12">
               <AvatarImage
@@ -153,7 +153,7 @@ const AdminReviews: React.FC = React.memo(() => {
 
             <div className="flex-1">
               {/* User Info & Product */}
-              <div className="flex items-start justify-between mb-3">
+              <div className="flex flex-col md:flex-row items-start justify-between mb-3">
                 <div>
                   <h4 className="font-semibold text-shop_dark_green">
                     {review.user?.firstName} {review.user?.lastName}
@@ -167,14 +167,14 @@ const AdminReviews: React.FC = React.memo(() => {
                     {review.product?.name}
                   </Link>
                 </div>
-                <div className="flex flex-col items-end gap-2">
+                <div className="flex flex-col md:items-end gap-2">
                   {review.isVerifiedPurchase && (
                     <Badge className="bg-green-100 text-green-700 hover:bg-green-200">
                       Verified Purchase
                     </Badge>
                   )}
                   {!isPending && (
-                    <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-200">
+                    <Badge className="bg-blue-100 w-fit text-blue-700 hover:bg-blue-200">
                       Approved
                     </Badge>
                   )}
@@ -216,7 +216,7 @@ const AdminReviews: React.FC = React.memo(() => {
 
               {/* Actions - Only show for pending reviews */}
               {isPending && (
-                <div className="flex items-center gap-3">
+                <div className="flex items-start md:items-center gap-3">
                   <Button
                     onClick={() => handleApprove(review._id)}
                     disabled={processingId === review._id}

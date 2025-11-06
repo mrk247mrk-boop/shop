@@ -1,18 +1,18 @@
 "use client";
 
-import { motion } from "motion/react";
-import { HelpCircle, MessageCircle } from "lucide-react";
+import Container from "@/components/Container";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import Container from "@/components/Container";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { faqsData } from "@/constants";
+import { HelpCircle, MessageCircle } from "lucide-react";
+import { motion } from "motion/react";
 import Link from "next/link";
 
 const FAQPage = () => {
@@ -29,7 +29,7 @@ const FAQPage = () => {
             <HelpCircle className="w-16 h-16 mx-auto mb-6 opacity-90" />
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">FAQs</h1>
             <p className="text-xl text-white/90 max-w-3xl mx-auto mb-6">
-              Quick answers to the most commonly asked questions about ShopCart.
+              Quick answers to the most commonly asked questions about EasyTech.
             </p>
             <Badge className="bg-white/20 text-white border-white/30 hover:bg-white/30">
               Essential Information

@@ -1,25 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  User,
-  Mail,
-  Phone,
-  MapPin,
   Calendar,
-  Shield,
-  Edit,
-  Plus,
-  Home,
   CheckCircle,
+  Edit,
+  Home,
+  Mail,
+  MapPin,
+  Phone,
+  Plus,
+  Shield,
+  User,
 } from "lucide-react";
-import ProfileEditSidebar from "./ProfileEditSidebar";
+import { useState } from "react";
 import AddressEditSidebar from "./AddressEditSidebar";
+import ProfileEditSidebar from "./ProfileEditSidebar";
 
 interface EmailAddress {
   emailAddress: string;
@@ -93,8 +93,8 @@ export default function ProfileClient({ userData }: ProfileClientProps) {
     clerk.firstName && clerk.lastName
       ? `${clerk.firstName} ${clerk.lastName}`
       : sanity?.firstName && sanity?.lastName
-      ? `${sanity.firstName} ${sanity.lastName}`
-      : clerk.firstName || sanity?.firstName || "User";
+        ? `${sanity.firstName} ${sanity.lastName}`
+        : clerk.firstName || sanity?.firstName || "User";
 
   const displayEmail =
     clerk.emailAddresses?.[0]?.emailAddress || sanity?.email || "";
@@ -114,13 +114,13 @@ export default function ProfileClient({ userData }: ProfileClientProps) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container     ">
       {/* Profile Header */}
       <div className="mb-8">
         <Card className="shadow-lg border-0">
           <CardHeader className="pb-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
+            <div className="flex flex-col md:flex-row  gap-2 md:items-center justify-between">
+              <div className="flex flex-col md:flex-row  md:items-center space-x-4">
                 <Avatar className="h-16 w-16">
                   <AvatarImage
                     src={clerk.imageUrl || sanity?.profileImage?.asset?.url}
@@ -131,12 +131,12 @@ export default function ProfileClient({ userData }: ProfileClientProps) {
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900">
+                  <h1 className=" text-xl md:text-2xl font-bold text-gray-900">
                     {displayName}
                   </h1>
-                  <p className="text-gray-600 flex items-center mt-1">
-                    <Mail className="h-4 w-4 mr-2" />
-                    {displayEmail}
+                  <p className="text-gray-600 flex gap-2 items-center text-sm mt-1">
+                    <Mail size={16} />
+                    <span className="text-xs"> {displayEmail}</span>
                   </p>
                   {sanity?.phone && (
                     <p className="text-gray-600 flex items-center mt-1">
@@ -329,7 +329,7 @@ export default function ProfileClient({ userData }: ProfileClientProps) {
       {/* Shipping Addresses */}
       <Card className="shadow-lg border-0">
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row gap-4 md:items-center justify-between">
             <CardTitle className="flex items-center space-x-2">
               <MapPin className="h-5 w-5" />
               <span>Shipping Addresses</span>

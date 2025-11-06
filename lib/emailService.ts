@@ -3,13 +3,10 @@ import SMTPTransport from "nodemailer/lib/smtp-transport";
 
 const transporter: Transporter<SMTPTransport.SentMessageInfo> =
   nodemailer.createTransport({
-    service: "gmail",
+    service: "Gmail",
     auth: {
-      type: "OAuth2",
-      user: process.env.SENDER_EMAIL_ADDRESS || "reactjsbd@gmail.com",
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASSWORD,
     },
   });
 
@@ -58,7 +55,7 @@ interface SendMailParams {
 }
 
 const generateOrderConfirmationHTML = (data: OrderConfirmationData): string => {
-  const formatCurrency = (amount: number) => `$${amount.toFixed(2)}`;
+  const formatCurrency = (amount: number) => `BDT${amount.toFixed(2)}৳`;
 
   return `
 <!DOCTYPE html>

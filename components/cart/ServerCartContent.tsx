@@ -1,30 +1,29 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import useCartStore from "@/store";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
 import EmptyCart from "@/components/EmptyCart";
 import PriceFormatter from "@/components/PriceFormatter";
-import Link from "next/link";
-import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
-import { CartItemControls } from "./CartItemControls";
-import { AddressSelector } from "./AddressSelector";
-import { CheckoutButton } from "./CheckoutButton";
-import { OrderPlacementSkeleton } from "./OrderPlacementSkeleton";
-import { Trash2, AlertTriangle, X } from "lucide-react";
-import { toast } from "sonner";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogPortal,
   DialogOverlay,
+  DialogPortal,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
+import { urlFor } from "@/sanity/lib/image";
+import useCartStore from "@/store";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-import { cn } from "@/lib/utils";
+import { AlertTriangle, Trash2, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { AddressSelector } from "./AddressSelector";
+import { CartItemControls } from "./CartItemControls";
+import { CheckoutButton } from "./CheckoutButton";
 
 interface Address {
   _id: string;
@@ -172,7 +171,7 @@ export function ServerCartContent({
           <div key={item.product._id} className="border rounded-lg p-4">
             <div className="flex gap-4">
               {/* Product Image */}
-              <div className="relative w-24 h-24 flex-shrink-0">
+              <div className="relative w-24 h-24 shrink-0">
                 <Image
                   src={
                     item.product.images?.[0]

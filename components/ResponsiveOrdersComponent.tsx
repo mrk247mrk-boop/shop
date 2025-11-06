@@ -1,18 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import { ORDER_STATUSES, PAYMENT_STATUSES } from "@/lib/orderStatus";
+import { MY_ORDERS_QUERYResult } from "@/sanity.types";
+import { urlFor } from "@/sanity/lib/image";
 import { format } from "date-fns";
-import { CreditCard, Eye, Download } from "lucide-react";
+import { CreditCard, Download, Eye } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 import { toast } from "sonner";
+import DirectPaymentModal from "./DirectPaymentModal";
+import PriceFormatter from "./PriceFormatter";
+import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader } from "./ui/card";
-import { Badge } from "./ui/badge";
-import { ORDER_STATUSES, PAYMENT_STATUSES } from "@/lib/orderStatus";
-import Link from "next/link";
-import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
-import PriceFormatter from "./PriceFormatter";
-import { MY_ORDERS_QUERYResult } from "@/sanity.types";
-import DirectPaymentModal from "./DirectPaymentModal";
 
 const ResponsiveOrdersComponent = ({
   orders,
@@ -195,8 +195,8 @@ const ResponsiveOrdersComponent = ({
   const OrderCard = ({ order }: { order: MY_ORDERS_QUERYResult[0] }) => (
     <Card className="w-full shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
       <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <div className="space-y-1 flex-1 min-w-0">
+        <div className="flex flex-col md:flex-row gap-4 md:items-center justify-between">
+          <div className="space-y-1   min-w-0">
             <div className="font-medium text-sm truncate">
               Order #{order.orderNumber?.slice(-10) ?? "N/A"}...
             </div>
@@ -208,7 +208,7 @@ const ResponsiveOrdersComponent = ({
           <Badge
             className={`${getStatusBadgeVariant(
               order
-            )} text-xs font-medium px-2 py-1 rounded-full shrink-0 ml-2`}
+            )} text-xs font-medium px-2 py-1 w-fit rounded-full shrink-0 ml-2`}
           >
             {order?.status
               ? order.status.charAt(0).toUpperCase() + order.status.slice(1)
@@ -218,9 +218,11 @@ const ResponsiveOrdersComponent = ({
       </CardHeader>{" "}
       <CardContent className="space-y-4">
         {/* Customer Info */}
-        <div className="flex items-center gap-2 text-sm">
-          <div className="font-medium">{order.customerName}</div>
-          <div className="text-gray-500">•</div>
+        <div className="flex flex-col md:flex-row md:items-center gap-2 text-sm">
+          <div className="flex gap-2 items-center">
+            <div className="font-medium">{order.customerName}</div>
+            <div className="text-gray-500">•</div>
+          </div>
           <div className="text-gray-600 truncate">{order.email}</div>
         </div>
 

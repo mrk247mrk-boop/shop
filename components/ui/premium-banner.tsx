@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { X, Star, Zap, Gift } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Gift, Star, X, Zap } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 interface PremiumBannerProps {
@@ -48,7 +48,7 @@ export default function PremiumBanner({
   };
 
   return (
-    <div className="relative bg-gradient-to-r from-shop_light_green to-shop_dark_green text-white rounded-lg p-4 mb-6 shadow-lg">
+    <div className="relative bg-linear-to-r from-shop_light_green to-shop_dark_green text-white rounded-lg p-4 mb-6 shadow-lg">
       {onDismiss && (
         <button
           onClick={onDismiss}
@@ -58,8 +58,8 @@ export default function PremiumBanner({
         </button>
       )}
 
-      <div className="flex items-start gap-4">
-        <div className="flex-shrink-0 bg-white/20 rounded-full p-2">
+      <div className="flex  flex-col md:flex-row items-start gap-4">
+        <div className="shrink-0 bg-white/20 rounded-full p-2">
           <Star className="h-6 w-6 text-yellow-300" />
         </div>
 

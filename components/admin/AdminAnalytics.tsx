@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { motion } from "motion/react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { AnalyticsSkeleton } from "@/components/admin/SkeletonLoaders";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -12,22 +11,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { AnalyticsSkeleton } from "@/components/admin/SkeletonLoaders";
 import {
-  TrendingUp,
-  TrendingDown,
-  DollarSign,
-  ShoppingCart,
-  Users,
-  Package,
-  Calendar,
-  RefreshCw,
-  BarChart3,
-  PieChart,
   Activity,
-  ArrowUpRight,
   ArrowDownRight,
+  ArrowUpRight,
+  BarChart3,
+  Calendar,
+  DollarSign,
+  Package,
+  PieChart,
+  RefreshCw,
+  ShoppingCart,
+  TrendingUp,
+  Users,
 } from "lucide-react";
+import { motion } from "motion/react";
+import React, { useEffect, useState } from "react";
 
 interface AnalyticsData {
   revenue: {
@@ -107,17 +106,17 @@ const AdminAnalytics = () => {
   }) => {
     const isPositive = change >= 0;
     const formatValue = (val: number) => {
-      if (format === "currency") return `$${val.toLocaleString()}`;
+      if (format === "currency") return `BDT ${val.toLocaleString()}৳`;
       return val.toLocaleString();
     };
 
     return (
       <Card className="group hover:shadow-xl transition-all duration-300 border-shop_light_green/20 hover:border-shop_light_green/40 overflow-hidden">
-        <div className={`h-1 bg-gradient-to-r ${color}`}></div>
+        <div className={`h-1 bg-linear-to-r ${color}`}></div>
         <CardHeader className="pb-3">
           <CardTitle className="text-sm font-medium text-light-color flex items-center justify-between">
             {title}
-            <Icon className="w-4 h-4" />
+            <span className="text-lg font-bold text-gray-600">৳</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
@@ -158,7 +157,7 @@ const AdminAnalytics = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-dark-color flex items-center gap-3">
+          <h1 className="text-lg md:text-3xl font-bold text-dark-color flex items-center gap-3">
             <BarChart3 className="w-8 h-8 text-shop_light_green" />
             Business Analytics
           </h1>
@@ -263,7 +262,7 @@ const AdminAnalytics = () => {
         >
           <Card className="border-shop_light_green/20">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex text-sm items-center gap-2">
                 <PieChart className="w-5 h-5 text-shop_light_green" />
                 Order Status Distribution
               </CardTitle>
@@ -310,7 +309,7 @@ const AdminAnalytics = () => {
         >
           <Card className="border-shop_light_green/20">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex   text-sm items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-shop_light_green" />
                 Top Performing Products
               </CardTitle>
@@ -354,7 +353,7 @@ const AdminAnalytics = () => {
       >
         <Card className="border-shop_light_green/20">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex  text-sm items-center gap-2">
               <Activity className="w-5 h-5 text-shop_light_green" />
               Recent Business Activity
             </CardTitle>
@@ -364,7 +363,7 @@ const AdminAnalytics = () => {
               {analytics?.recentActivity?.slice(0, 8).map((activity, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-between p-3 border border-shop_light_green/10 rounded-lg"
+                  className="flex items-center flex-wrap gap-2 justify-between p-3 border border-shop_light_green/10 rounded-lg"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-shop_light_green rounded-full"></div>

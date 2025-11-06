@@ -1,20 +1,8 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import {
-  Package,
-  Heart,
-  Bell,
-  Star,
-  TrendingUp,
-  Clock,
-  ArrowRight,
-  User,
-  CheckCircle,
-  Wallet,
-} from "lucide-react";
+import ApplicationSuccessNotification from "@/components/ui/application-success-notification";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -22,12 +10,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import PremiumBanner from "@/components/ui/premium-banner";
 import PremiumBadge from "@/components/ui/premium-badge";
-import ApplicationSuccessNotification from "@/components/ui/application-success-notification";
+import PremiumBanner from "@/components/ui/premium-banner";
+import { Separator } from "@/components/ui/separator";
+import { useUser } from "@clerk/nextjs";
+import {
+  ArrowRight,
+  Bell,
+  CheckCircle,
+  Clock,
+  Heart,
+  Package,
+  Star,
+  TrendingUp,
+  User,
+  Wallet,
+} from "lucide-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 interface UserStats {
@@ -258,12 +258,12 @@ export default function UserDashboardPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto  py-8">
       {/* Welcome Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-3">
-            <div className="p-2 bg-blue-100 rounded-lg">
+          <div className="flex flex-col md:flex-row gap-4  md:items-center  ">
+            <div className="p-2 w-fit bg-blue-100 rounded-lg">
               <User className="h-6 w-6 text-blue-600" />
             </div>
             <div>
@@ -308,7 +308,7 @@ export default function UserDashboardPage() {
 
         {/* Premium Application Status */}
         {userProfile && userProfile.premiumStatus === "pending" && (
-          <div className="mb-6 p-6 bg-gradient-to-r from-amber-50 to-yellow-50 border-l-4 border-amber-400 rounded-lg shadow-sm">
+          <div className="mb-6 p-6 bg-linear-to-r from-amber-50 to-yellow-50 border-l-4 border-amber-400 rounded-lg shadow-sm">
             <div className="flex items-start gap-4">
               <div className="shrink-0">
                 <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
@@ -404,9 +404,9 @@ export default function UserDashboardPage() {
           userProfile.isActive &&
           userProfile.premiumStatus === "active" &&
           !userProfile.isBusiness && (
-            <div className="mb-6 p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 rounded-lg shadow-sm">
+            <div className="mb-6 p-6 bg-linear-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 rounded-lg shadow-sm">
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                     <CheckCircle className="h-5 w-5 text-green-600" />
                   </div>
@@ -497,9 +497,9 @@ export default function UserDashboardPage() {
 
         {/* Business Application Status */}
         {userProfile && userProfile.businessStatus === "pending" && (
-          <div className="mb-6 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-400 rounded-lg shadow-sm">
+          <div className="mb-6 p-6 bg-linear-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-400 rounded-lg shadow-sm">
             <div className="flex items-start gap-4">
-              <div className="flex-shrink-0">
+              <div className="shrink-0">
                 <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
                   <Clock className="h-5 w-5 text-blue-600 animate-pulse" />
                 </div>
@@ -554,9 +554,9 @@ export default function UserDashboardPage() {
         {userProfile &&
           userProfile.isBusiness &&
           userProfile.businessStatus === "active" && (
-            <div className="mb-6 p-6 bg-gradient-to-r from-emerald-50 to-green-50 border-l-4 border-emerald-400 rounded-lg shadow-sm">
+            <div className="mb-6 p-6 bg-linear-to-r from-emerald-50 to-green-50 border-l-4 border-emerald-400 rounded-lg shadow-sm">
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
                     <CheckCircle className="h-5 w-5 text-emerald-600" />
                   </div>
@@ -640,7 +640,7 @@ export default function UserDashboardPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-        <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
+        <Card className="bg-linear-to-br from-blue-500 to-blue-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
             <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
             <Package className="h-5 w-5" />
@@ -714,7 +714,9 @@ export default function UserDashboardPage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <Clock className="h-5 w-5 text-gray-600" />
-                <CardTitle className="text-lg">Recent Activity</CardTitle>
+                <CardTitle className="text-sm md:text-lg">
+                  Recent Activity
+                </CardTitle>
               </div>
               <Button variant="ghost" size="sm" asChild>
                 <Link href="/user/notifications">

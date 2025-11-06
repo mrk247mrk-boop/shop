@@ -148,7 +148,7 @@ export default function ProfileEditSidebar({
 
         <form
           onSubmit={handleSubmit}
-          className="space-y-6 mt-6 h-60 overflow-auto"
+          className="space-y-6 mt-6 overflow-y-auto"
         >
           {/* Clerk Data (Read-only) */}
           <div className="space-y-4">
@@ -278,7 +278,7 @@ export default function ProfileEditSidebar({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex space-x-3 pt-6 border-t">
+          <div className="flex space-x-3 p-4 border-t">
             <Button type="submit" className="flex-1" disabled={loading}>
               {loading ? (
                 <div className="flex items-center space-x-2">

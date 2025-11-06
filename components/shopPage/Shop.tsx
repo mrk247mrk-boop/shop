@@ -1,15 +1,15 @@
 "use client";
 import { BRANDS_QUERYResult, Category, Product } from "@/sanity.types";
 import { client } from "@/sanity/lib/client";
-import React, { useEffect, useState, useCallback } from "react";
+import { Filter, X } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 import Container from "../Container";
-import Title from "../Title";
-import CategoryList from "./CategoryList";
-import { Loader2, Filter, X } from "lucide-react";
 import ProductCard from "../ProductCard";
+import Title from "../Title";
 import NoProductAvailable from "../product/NoProductAvailable";
 import BrandList from "./BrandList";
-import { useSearchParams } from "next/navigation";
+import CategoryList from "./CategoryList";
 import PriceList from "./PriceList";
 
 interface Props {
@@ -210,7 +210,7 @@ const Shop = ({ categories, brands }: Props) => {
           )}
 
           {/* Desktop Sidebar Filters */}
-          <div className="hidden lg:block lg:w-80 flex-shrink-0">
+          <div className="hidden lg:block lg:w-80 shrink-0">
             <div className="sticky top-6 space-y-4">
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
                 <div className="p-4 bg-gray-50 border-b border-gray-200">
@@ -270,7 +270,7 @@ const Shop = ({ categories, brands }: Props) => {
                         Showing all available products
                       </div>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3   gap-4 md:gap-6">
                       {products?.map((product) => (
                         <ProductCard key={product?._id} product={product} />
                       ))}

@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
 import { subscribeToNewsletter } from "@/actions/subscriptionActions";
 import { sendMail } from "@/lib/emailService";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     // Send welcome email
     const emailResult = await sendMail({
       email,
-      subject: "Welcome to ShopCart Newsletter! 🎉",
+      subject: "Welcome to EasyTech Newsletter! 🎉",
       text: `Thank you for subscribing to our newsletter! You're now part of our exclusive community.`,
       html: generateWelcomeEmailHTML(email),
     });
@@ -75,7 +75,7 @@ function generateWelcomeEmailHTML(email: string): string {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to ShopCart Newsletter</title>
+    <title>Welcome to EasyTech Newsletter</title>
     <style>
         * {
             margin: 0;
@@ -288,7 +288,7 @@ function generateWelcomeEmailHTML(email: string): string {
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1>🎉 Welcome to ShopCart!</h1>
+            <h1>🎉 Welcome to EasyTech!</h1>
             <p>Thank you for joining our newsletter community</p>
         </div>
         
@@ -298,7 +298,7 @@ function generateWelcomeEmailHTML(email: string): string {
             <div class="welcome-message">
                 <h2>You're All Set! 🌟</h2>
                 <p>
-                    Thank you for subscribing to the ShopCart newsletter! We're thrilled to have you as part of our community. 
+                    Thank you for subscribing to the EasyTech newsletter! We're thrilled to have you as part of our community. 
                     Get ready to receive exclusive deals, new product announcements, and helpful shopping tips directly to your inbox.
                 </p>
             </div>
@@ -352,7 +352,7 @@ function generateWelcomeEmailHTML(email: string): string {
             <div class="cta-section">
                 <p style="margin-bottom: 20px; color: #495057;">Start exploring amazing deals today!</p>
                 <a href="${
-                  process.env.NEXT_PUBLIC_BASE_URL || "https://shopcart.com"
+                  process.env.NEXT_PUBLIC_BASE_URL || "https://EasyTech.com"
                 }" class="cta-button">
                     Shop Now →
                 </a>
@@ -367,12 +367,12 @@ function generateWelcomeEmailHTML(email: string): string {
         
         <!-- Footer -->
         <div class="footer">
-            <p><strong>ShopCart</strong></p>
+            <p><strong>EasyTech</strong></p>
             <p>123 Shopping Street, Commerce District<br>
                New York, NY 10001, USA</p>
             <p>
                 Questions? Contact us at 
-                <a href="mailto:support@shopcart.com">support@shopcart.com</a> or 
+                <a href="mailto:support@EasyTech.com">support@EasyTech.com</a> or 
                 call <a href="tel:+15551234567">+1 (555) 123-4567</a>
             </p>
             
@@ -385,13 +385,13 @@ function generateWelcomeEmailHTML(email: string): string {
             
             <div class="unsubscribe">
                 <p>
-                    You received this email because you subscribed to ShopCart Newsletter with ${email}.<br>
+                    You received this email because you subscribed to EasyTech Newsletter with ${email}.<br>
                     <a href="${
                       process.env.NEXT_PUBLIC_BASE_URL ||
-                      "https://shopcartpro.org"
+                      "https://EasyTechpro.org"
                     }/unsubscribe?email=${encodeURIComponent(
-    email
-  )}">Unsubscribe</a>
+                      email
+                    )}">Unsubscribe</a>
                 </p>
             </div>
         </div>

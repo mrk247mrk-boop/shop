@@ -1,9 +1,9 @@
 // Analytics Dashboard Component for viewing comprehensive e-commerce analytics
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -11,17 +11,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
 import {
-  TrendingUp,
-  ShoppingCart,
-  Package,
-  DollarSign,
-  Users,
-  RefreshCw,
   Award,
-  Heart,
+  Package,
+  RefreshCw,
+  ShoppingCart,
+  TrendingUp,
 } from "lucide-react";
+import React, { useEffect, useState } from "react";
 
 interface BestSeller {
   productId: string;
@@ -114,7 +111,7 @@ const AnalyticsDashboard: React.FC = () => {
               <CardTitle className="text-sm font-medium">
                 Total Revenue
               </CardTitle>
-              <DollarSign className="h-4 w-4 text-muted-foreground" />
+              <span className="text-gray-600 font-bold">৳</span>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">

@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
+import { useState, useTransition } from "react";
 
-import { Trash2 } from "lucide-react";
 import { removeFromCart, updateCartItem } from "@/actions/userActions";
+import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 interface CartItemActionsProps {
@@ -68,7 +68,7 @@ export function CartItemActions({
         >
           -
         </Button>
-        <span className="px-3 py-1 text-sm font-medium min-w-[40px] text-center">
+        <span className="px-3 py-1 text-sm font-medium min-w-10 text-center">
           {quantity}
         </span>
         <Button

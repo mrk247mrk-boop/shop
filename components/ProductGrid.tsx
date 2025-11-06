@@ -1,16 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import ProductCard from "./ProductCard";
-import { motion, AnimatePresence } from "motion/react";
-import { client } from "@/sanity/lib/client";
-import HomeTabbar from "./HomeTabbar";
-import { productType } from "@/constants";
-import NoProductAvailable from "./product/NoProductAvailable";
-import { Grid3X3, LayoutGrid, List, Filter, SortAsc, Eye } from "lucide-react";
-import Container from "./Container";
-import { ALL_PRODUCTS_QUERYResult } from "@/sanity.types";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -18,13 +12,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ProductGridSkeleton } from "./ProductSkeletons";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Slider } from "@/components/ui/slider";
 import { Separator } from "@/components/ui/separator";
+import { Slider } from "@/components/ui/slider";
+import { productType } from "@/constants";
+import { ALL_PRODUCTS_QUERYResult } from "@/sanity.types";
+import { client } from "@/sanity/lib/client";
+import { Eye, Filter, Grid3X3, LayoutGrid, List, SortAsc } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import React, { useEffect, useState } from "react";
+import Container from "./Container";
+import HomeTabbar from "./HomeTabbar";
+import NoProductAvailable from "./product/NoProductAvailable";
+import ProductCard from "./ProductCard";
+import { ProductGridSkeleton } from "./ProductSkeletons";
 
 type ViewMode = "grid-2" | "grid-3" | "grid-4" | "grid-5" | "list";
 type SortOption =
@@ -148,13 +148,13 @@ const ProductGrid = () => {
       case "grid-3":
         return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5";
       case "grid-4":
-        return "grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4";
+        return "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4";
       case "grid-5":
-        return "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3";
+        return "grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3";
       case "list":
         return "grid-cols-1 gap-4";
       default:
-        return "grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4";
+        return "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4";
     }
   };
 
@@ -187,11 +187,11 @@ const ProductGrid = () => {
       {/* Header Section */}
       <div className="text-center mb-8">
         <div className="inline-flex items-center gap-3 mb-4">
-          <div className="h-1 w-12 bg-gradient-to-r from-shop_light_green to-shop_dark_green rounded-full"></div>
+          <div className="h-1 w-12 bg-linear-to-r from-shop_light_green to-shop_dark_green rounded-full"></div>
           <h2 className="text-3xl lg:text-4xl font-bold text-dark-color">
             Featured Products
           </h2>
-          <div className="h-1 w-12 bg-gradient-to-l from-shop_light_green to-shop_dark_green rounded-full"></div>
+          <div className="h-1 w-12 bg-linear-to-l from-shop_light_green to-shop_dark_green rounded-full"></div>
         </div>
         <p className="text-light-color text-lg max-w-2xl mx-auto">
           Discover our carefully curated selection of premium products
@@ -258,7 +258,7 @@ const ProductGrid = () => {
           </div>
 
           {/* Right Side - Sort and Info */}
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
             {/* Sort Selector */}
             <div className="flex items-center gap-2">
               <SortAsc size={16} className="text-light-color" />
@@ -469,8 +469,8 @@ const ProductGrid = () => {
                             {rating === "5"
                               ? "🔥 Premium Only"
                               : rating === "4"
-                              ? "✨ High Quality+"
-                              : "🛍️ Standard+"}
+                                ? "✨ High Quality+"
+                                : "🛍️ Standard+"}
                           </Badge>
                         </div>
                       )}
@@ -543,8 +543,8 @@ const ProductGrid = () => {
                             {rating === "5"
                               ? "🔥 Premium"
                               : rating === "4"
-                              ? "✨ High Quality"
-                              : "🛍️ Standard+"}
+                                ? "✨ High Quality"
+                                : "🛍️ Standard+"}
                           </Badge>
                         )}
                       </div>

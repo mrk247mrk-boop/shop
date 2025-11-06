@@ -8,12 +8,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { getCategories } from "@/sanity/queries";
 import { Category } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
+import { getCategories } from "@/sanity/queries";
+import { ArrowRight, Package, Tag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Package, Tag } from "lucide-react";
 
 const CategoryPage = async () => {
   const categories: Category[] = await getCategories();
