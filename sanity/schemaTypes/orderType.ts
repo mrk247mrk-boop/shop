@@ -29,6 +29,12 @@ export const orderType = defineType({
       hidden: ({ document }) => document?.paymentMethod !== "stripe",
     }),
     defineField({
+      name: "easyTechSerialNumber",
+      title: "Easy Teach Serial Number",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "stripeCustomerId",
       title: "Stripe Customer ID",
       type: "string",

@@ -67,6 +67,7 @@ interface UserProfile {
 
 export default function UserDashboardPage() {
   const { user } = useUser();
+
   const [stats, setStats] = useState<UserStats>({
     ordersCount: 0,
     wishlistCount: 0,

@@ -1,42 +1,42 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useUser } from "@clerk/nextjs";
-import { useSearchParams } from "next/navigation";
+import { OrderPlacementOverlay } from "@/components/cart/OrderPlacementSkeleton";
+import { CheckoutSkeleton } from "@/components/checkout/CheckoutSkeleton";
+import { OrderAddressSelector } from "@/components/checkout/OrderAddressSelector";
+import PriceFormatter from "@/components/PriceFormatter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
-import {
-  CreditCard,
-  Truck,
-  MapPin,
-  ShoppingBag,
-  Package,
-  Loader2,
-  X,
-  Wallet,
-} from "lucide-react";
-import useCartStore, { CartItem } from "@/store";
-import PriceFormatter from "@/components/PriceFormatter";
-import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
-import { toast } from "sonner";
-import { PAYMENT_METHODS, PaymentMethod } from "@/lib/orderStatus";
-import { OrderAddressSelector } from "@/components/checkout/OrderAddressSelector";
-import { useOrderPlacement } from "@/hooks/useOrderPlacement";
-import { CheckoutSkeleton } from "@/components/checkout/CheckoutSkeleton";
-import { OrderPlacementOverlay } from "@/components/cart/OrderPlacementSkeleton";
 import {
   Dialog,
-  DialogPortal,
   DialogOverlay,
+  DialogPortal,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Separator } from "@/components/ui/separator";
+import { useOrderPlacement } from "@/hooks/useOrderPlacement";
+import { PAYMENT_METHODS, PaymentMethod } from "@/lib/orderStatus";
+import { cn } from "@/lib/utils";
+import { urlFor } from "@/sanity/lib/image";
+import useCartStore, { CartItem } from "@/store";
+import { useUser } from "@clerk/nextjs";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-import { cn } from "@/lib/utils";
+import {
+  CreditCard,
+  Loader2,
+  MapPin,
+  Package,
+  ShoppingBag,
+  Truck,
+  Wallet,
+  X,
+} from "lucide-react";
+import Image from "next/image";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 interface OrderAddress {
   _id: string;
@@ -55,6 +55,7 @@ interface OrderAddress {
 
 export function CheckoutContent() {
   const { user, isLoaded } = useUser();
+  const easyTechSerialNumber = user?.unsafeMetadata?.externalId;
   const searchParams = useSearchParams();
   const {
     items: cart,
@@ -66,7 +67,7 @@ export function CheckoutContent() {
     user: user!,
   });
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
-    useState<PaymentMethod>(PAYMENT_METHODS.STRIPE);
+    useState<PaymentMethod>(PAYMENT_METHODS.CASH_ON_DELIVERY);
   const [selectedAddress, setSelectedAddress] = useState<OrderAddress | null>(
     null
   );
@@ -251,7 +252,8 @@ export function CheckoutContent() {
       finalSubtotal, // Pass final subtotal (includes business discount)
       shipping,
       tax,
-      total
+      total,
+      easyTechSerialNumber as string
     );
 
     if (result?.success && result.redirectTo) {
@@ -366,7 +368,7 @@ export function CheckoutContent() {
                 </div>
               </div>
 
-              <div className="flex items-start space-x-3 p-3 border rounded-lg">
+              {/* <div className="flex items-start space-x-3 p-3 border rounded-lg">
                 <RadioGroupItem
                   value={PAYMENT_METHODS.STRIPE}
                   id="stripe"
@@ -383,7 +385,7 @@ export function CheckoutContent() {
                     </p>
                   </Label>
                 </div>
-              </div>
+              </div> */}
             </RadioGroup>
           </CardContent>
         </Card>
@@ -546,7 +548,7 @@ export function CheckoutContent() {
         </Card>
 
         <div className="space-y-3">
-          <Button
+          {/* <Button
             onClick={handlePayNowClick}
             disabled={isPlacingOrder || !selectedAddress || cart.length === 0}
             className="w-full h-12 text-lg font-semibold"
@@ -563,11 +565,15 @@ export function CheckoutContent() {
                 Pay Now
               </div>
             )}
-          </Button>
+          </Button> */}
 
           <Button
             onClick={() => handlePlaceOrder("order")}
-            disabled={isPlacingOrder || !selectedAddress || cart.length === 0}
+            disabled={
+              (isPlacingOrder || !selectedAddress || cart.length === 0) &&
+              !selectedPaymentMethod &&
+              !easyTechSerialNumber
+            }
             variant="outline"
             className="w-full h-12 text-lg font-semibold"
             size="lg"

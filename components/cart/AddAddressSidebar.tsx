@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,7 +11,8 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { MapPin, Loader2 } from "lucide-react";
+import { Loader2, MapPin } from "lucide-react";
+import React, { useState, useTransition } from "react";
 import { toast } from "sonner";
 
 interface AddAddressSidebarProps {
@@ -146,7 +146,7 @@ export function AddAddressSidebar({
               <Input
                 id="phone"
                 type="tel"
-                placeholder="(555) 123-4567"
+                placeholder="+880123456789"
                 value={formData.phone}
                 onChange={(e) => handleInputChange("phone", e.target.value)}
                 disabled={isPending}
@@ -175,7 +175,7 @@ export function AddAddressSidebar({
                 </Label>
                 <Input
                   id="city"
-                  placeholder="New York"
+                  placeholder="Dhaka"
                   value={formData.city}
                   onChange={(e) => handleInputChange("city", e.target.value)}
                   disabled={isPending}
@@ -188,7 +188,7 @@ export function AddAddressSidebar({
                 </Label>
                 <Input
                   id="state"
-                  placeholder="NY"
+                  placeholder="Dhaka"
                   maxLength={2}
                   value={formData.state}
                   onChange={(e) =>

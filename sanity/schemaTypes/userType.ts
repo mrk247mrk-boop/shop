@@ -91,13 +91,14 @@ export const userType = defineType({
           type: "string",
           options: {
             list: [
+              { title: "BDT", value: "BDT" },
               { title: "USD", value: "USD" },
               { title: "EUR", value: "EUR" },
               { title: "GBP", value: "GBP" },
               { title: "CAD", value: "CAD" },
             ],
           },
-          initialValue: "USD",
+          initialValue: "BDT",
         }),
         defineField({
           name: "preferredLanguage",

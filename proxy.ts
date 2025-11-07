@@ -22,7 +22,7 @@ const isUserAdmin = (userEmail: string | null | undefined): boolean => {
 
   try {
     const adminEmails = adminEmailsEnv
-      .replace(/[\[\]]/g, "") // Remove brackets if present
+      .replace(/[\[\]]/g, "")
       .split(",")
       .map((email) => email.trim().toLowerCase())
       .filter((email) => email.length > 0);
@@ -46,11 +46,6 @@ export default clerkMiddleware(async (auth, req) => {
     if (!userId) {
       return NextResponse.redirect(new URL("/sign-in", req.url));
     }
-
-    // Get user's email from Clerk
-    // Note: In middleware, we can't easily access the full user object
-    // The client-side check in the admin page component will handle the detailed verification
-    // This middleware primarily ensures authentication is required for admin routes
   }
 });
 

@@ -1,16 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -19,8 +8,11 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Country, State, City } from "country-state-city";
-import { ChevronRight, MapPin, Globe } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { City, Country, State } from "country-state-city";
+import { Globe, MapPin } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface LocationData {
   country: string;
@@ -53,7 +45,6 @@ export default function LocationSelector({
   const [loadingStates, setLoadingStates] = useState(false);
   const [loadingCities, setLoadingCities] = useState(false);
 
-  // Load states when country changes
   useEffect(() => {
     if (value.countryCode) {
       setLoadingStates(true);
@@ -71,7 +62,6 @@ export default function LocationSelector({
     }
   }, [value.countryCode]);
 
-  // Load cities when state changes
   useEffect(() => {
     if (value.countryCode && value.stateCode) {
       setLoadingCities(true);
@@ -92,7 +82,8 @@ export default function LocationSelector({
     }
   }, [value.countryCode, value.stateCode]);
 
-  const handleCountryChange = (countryCode: string) => {
+  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const countryCode = e.target.value;
     const country = countries.find((c) => c.isoCode === countryCode);
     if (country) {
       onChange({
@@ -107,7 +98,8 @@ export default function LocationSelector({
     }
   };
 
-  const handleStateChange = (stateCode: string) => {
+  const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const stateCode = e.target.value;
     const state = states.find((s) => s.isoCode === stateCode);
     if (state) {
       onChange({
@@ -120,7 +112,8 @@ export default function LocationSelector({
     }
   };
 
-  const handleCityChange = (cityName: string) => {
+  const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const cityName = e.target.value;
     onChange({
       ...value,
       city: cityName,
@@ -128,21 +121,11 @@ export default function LocationSelector({
     });
   };
 
-  const handleSubAreaChange = (subArea: string) => {
-    onChange({
-      ...value,
-      subArea,
-    });
-  };
+  const handleSubAreaChange = (subArea: string) =>
+    onChange({ ...value, subArea });
+  const handleZipChange = (zipCode: string) => onChange({ ...value, zipCode });
 
-  const handleZipChange = (zipCode: string) => {
-    onChange({
-      ...value,
-      zipCode,
-    });
-  };
-
-  const resetToCountry = () => {
+  const resetToCountry = () =>
     onChange({
       country: "",
       countryCode: "",
@@ -152,9 +135,8 @@ export default function LocationSelector({
       subArea: "",
       zipCode: value.zipCode,
     });
-  };
 
-  const resetToState = () => {
+  const resetToState = () =>
     onChange({
       ...value,
       state: "",
@@ -162,15 +144,13 @@ export default function LocationSelector({
       city: "",
       subArea: "",
     });
-  };
 
-  const resetToCity = () => {
+  const resetToCity = () =>
     onChange({
       ...value,
       city: "",
       subArea: "",
     });
-  };
 
   return (
     <div className={`space-y-6 ${className}`}>
@@ -261,57 +241,47 @@ export default function LocationSelector({
         <Label htmlFor="country" className="text-sm font-medium">
           Country *
         </Label>
-        <Select value={value.countryCode} onValueChange={handleCountryChange}>
-          <SelectTrigger className="mt-1">
-            <SelectValue placeholder="Select a country" />
-          </SelectTrigger>
-          <SelectContent>
-            {countries.map((country) => (
-              <SelectItem key={country.isoCode} value={country.isoCode}>
-                <div className="flex items-center space-x-2">
-                  <span className="text-lg">{country.flag}</span>
-                  <span>{country.name}</span>
-                </div>
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <select
+          id="country"
+          value={value.countryCode}
+          onChange={handleCountryChange}
+          className="mt-1 w-full rounded-md border border-gray-300 bg-white p-2 text-sm"
+        >
+          <option value="">Select a country</option>
+          {countries.map((country) => (
+            <option key={country.isoCode} value={country.isoCode}>
+              {country.flag} {country.name}
+            </option>
+          ))}
+        </select>
       </div>
 
-      {/* State/Province Selection */}
+      {/* State Selection */}
       {value.countryCode && (
         <div>
           <Label htmlFor="state" className="text-sm font-medium">
             {value.country === "United States" ? "State" : "State/Province"} *
           </Label>
-          <Select
+          <select
+            id="state"
             value={value.stateCode}
-            onValueChange={handleStateChange}
+            onChange={handleStateChange}
             disabled={loadingStates || states.length === 0}
+            className="mt-1 w-full rounded-md border border-gray-300 bg-white p-2 text-sm"
           >
-            <SelectTrigger className="mt-1">
-              <SelectValue
-                placeholder={
-                  loadingStates
-                    ? "Loading states..."
-                    : states.length === 0
-                    ? "No states available"
-                    : `Select a ${
-                        value.country === "United States"
-                          ? "state"
-                          : "state/province"
-                      }`
-                }
-              />
-            </SelectTrigger>
-            <SelectContent>
-              {states.map((state) => (
-                <SelectItem key={state.isoCode} value={state.isoCode}>
-                  {state.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+            <option value="">
+              {loadingStates
+                ? "Loading states..."
+                : states.length === 0
+                  ? "No states available"
+                  : "Select a state"}
+            </option>
+            {states.map((state) => (
+              <option key={state.isoCode} value={state.isoCode}>
+                {state.name}
+              </option>
+            ))}
+          </select>
         </div>
       )}
 
@@ -321,46 +291,40 @@ export default function LocationSelector({
           <Label htmlFor="city" className="text-sm font-medium">
             City *
           </Label>
-          <Select
+          <select
+            id="city"
             value={value.city}
-            onValueChange={handleCityChange}
+            onChange={handleCityChange}
             disabled={loadingCities || cities.length === 0}
+            className="mt-1 w-full rounded-md border border-gray-300 bg-white p-2 text-sm"
           >
-            <SelectTrigger className="mt-1">
-              <SelectValue
-                placeholder={
-                  loadingCities
-                    ? "Loading cities..."
-                    : cities.length === 0
-                    ? "No cities available or enter manually below"
-                    : "Select a city"
-                }
-              />
-            </SelectTrigger>
-            <SelectContent>
-              {cities.map((city) => (
-                <SelectItem key={city.name} value={city.name}>
-                  {city.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+            <option value="">
+              {loadingCities
+                ? "Loading cities..."
+                : cities.length === 0
+                  ? "No cities available or enter manually"
+                  : "Select a city"}
+            </option>
+            {cities.map((city) => (
+              <option key={city.name} value={city.name}>
+                {city.name}
+              </option>
+            ))}
+          </select>
 
-          {/* Manual city input if no cities in database */}
-          {value.stateCode && cities.length === 0 && (
+          {cities.length === 0 && (
             <div className="mt-2">
               <Input
                 placeholder="Enter city name manually"
                 value={value.city}
-                onChange={(e) => handleCityChange(e.target.value)}
-                className="text-sm"
+                onChange={(e) => handleCityChange(e as any)}
               />
             </div>
           )}
         </div>
       )}
 
-      {/* Sub-area/District (Optional) */}
+      {/* Subarea */}
       {value.city && (
         <div>
           <Label htmlFor="subarea" className="text-sm font-medium">
@@ -371,12 +335,11 @@ export default function LocationSelector({
             placeholder="Enter area, district, or neighborhood"
             value={value.subArea || ""}
             onChange={(e) => handleSubAreaChange(e.target.value)}
-            className="mt-1"
           />
         </div>
       )}
 
-      {/* ZIP/Postal Code */}
+      {/* Zip Code */}
       {value.country && (
         <div>
           <Label htmlFor="zipcode" className="text-sm font-medium">
@@ -391,7 +354,6 @@ export default function LocationSelector({
             }
             value={value.zipCode}
             onChange={(e) => handleZipChange(e.target.value)}
-            className="mt-1"
           />
         </div>
       )}

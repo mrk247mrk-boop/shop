@@ -1,14 +1,14 @@
-import { NextRequest, NextResponse } from "next/server";
-import { auth, currentUser } from "@clerk/nextjs/server";
-import { getMyOrders } from "@/sanity/helpers";
-import { writeClient } from "@/sanity/lib/client";
+import { sendOrderStatusNotification } from "@/lib/notificationService";
 import {
   ORDER_STATUSES,
-  PAYMENT_STATUSES,
   PAYMENT_METHODS,
+  PAYMENT_STATUSES,
 } from "@/lib/orderStatus";
+import { getMyOrders } from "@/sanity/helpers";
+import { writeClient } from "@/sanity/lib/client";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import crypto from "crypto";
-import { sendOrderStatusNotification } from "@/lib/notificationService";
+import { NextRequest, NextResponse } from "next/server";
 
 interface CartItem {
   product: {
@@ -58,17 +58,18 @@ export const POST = async (request: NextRequest) => {
       totalAmount,
       subtotal,
       shipping,
+      easyTechSerialNumber,
       tax,
     } = reqBody;
-
+    console.log({ easyTechSerialNumber });
     // Validate required fields
     if (!items || !Array.isArray(items) || items.length === 0) {
       return NextResponse.json({ error: "No items provided" }, { status: 400 });
     }
 
-    if (!shippingAddress) {
+    if (!shippingAddress && !easyTechSerialNumber) {
       return NextResponse.json(
-        { error: "Shipping address is required" },
+        { error: "EasyTech Serial Number Shipping address is required" },
         { status: 400 }
       );
     }
@@ -102,6 +103,7 @@ export const POST = async (request: NextRequest) => {
       customerName: userName,
       email: userEmail,
       phone: userPhone,
+      easyTechSerialNumber,
       clerkUserId: userId,
       products: items.map(
         (item: { product: { _id: string }; quantity: number }) => ({

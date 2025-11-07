@@ -1,17 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import LocationSelector from "@/components/ui/location-selector";
 import {
   Select,
   SelectContent,
@@ -19,9 +11,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import { Switch } from "@/components/ui/switch";
 import { showToast } from "@/lib/toast";
-import LocationSelector from "@/components/ui/location-selector";
-import { MapPin, Save, X, Trash2 } from "lucide-react";
+import { MapPin, Save, Trash2, X } from "lucide-react";
+import { useState } from "react";
 
 interface Address {
   _id?: string;
@@ -73,7 +73,7 @@ export default function AddressEditSidebar({
   });
 
   const isEditing = !!address?._id;
-
+  console.log(address);
   const handleLocationChange = (location: {
     country: string;
     countryCode: string;
@@ -171,13 +171,11 @@ export default function AddressEditSidebar({
     setDeleteLoading(true);
 
     try {
-      const response = await fetch(`/api/user/addresses`, {
+      const response = await fetch(`/api/user/addresses?id=${address._id}`, {
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ addressId: address._id }),
       });
+
+      const data = await response.json();
 
       if (response.ok) {
         showToast.success(
@@ -185,12 +183,9 @@ export default function AddressEditSidebar({
           "Your address has been successfully deleted."
         );
         onClose();
-        // Call callback to refresh addresses instead of page reload
-        if (onAddressChange) {
-          onAddressChange();
-        }
+        onAddressChange?.();
       } else {
-        throw new Error("Failed to delete address");
+        throw new Error(data.error || "Failed to delete address");
       }
     } catch (error) {
       console.error("Error deleting address:", error);

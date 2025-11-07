@@ -1,12 +1,12 @@
 "use client";
 
+import Logo from "@/components/common/Logo";
+import Container from "@/components/Container";
+import { contactConfig } from "@/config/contact";
 import { SignIn } from "@clerk/nextjs";
+import { ArrowLeft, Shield, Star, Users } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
-import Logo from "@/components/common/Logo";
-import { ArrowLeft, Shield, Users, Star } from "lucide-react";
-import { contactConfig } from "@/config/contact";
-import Container from "@/components/Container";
 import { useSearchParams } from "next/navigation";
 
 const SignInPage = () => {
@@ -127,7 +127,7 @@ const SignInPage = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 lg:py-12"
           >
-            <div className="w-full max-w-md">
+            <div className="w-fit max-w-md">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}

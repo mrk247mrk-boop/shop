@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CreditCard, Package } from "lucide-react";
-import useCartStore, { CartItem } from "@/store";
-import { toast } from "sonner";
-import { useUser } from "@clerk/nextjs";
 import { useOrderPlacement } from "@/hooks/useOrderPlacement";
-import { PAYMENT_METHODS } from "@/lib/orderStatus";
 import { trackCheckoutStarted } from "@/lib/analytics";
+import { PAYMENT_METHODS } from "@/lib/orderStatus";
+import useCartStore, { CartItem } from "@/store";
+import { useUser } from "@clerk/nextjs";
+import { CreditCard } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 import { OrderPlacementOverlay } from "./OrderPlacementSkeleton";
 
@@ -35,6 +35,8 @@ export function CheckoutButton({ cart, selectedAddress }: CheckoutButtonProps) {
   const { placeOrder, isPlacingOrder, orderStep } = useOrderPlacement({
     user: user ? { emailAddresses: user.emailAddresses } : null,
   });
+  const easyTechSerialNumber = user?.unsafeMetadata?.externalId as string;
+
   const [actionType, setActionType] = useState<"checkout" | "order" | null>(
     null
   );
@@ -112,7 +114,10 @@ export function CheckoutButton({ cart, selectedAddress }: CheckoutButtonProps) {
     const tax =
       currentSubtotal * (parseFloat(process.env.TAX_AMOUNT || "0") || 0);
     const orderTotal = currentSubtotal + shipping + tax;
-
+    const easyTechSerialNumber = user?.unsafeMetadata?.externalId as string;
+    if (easyTechSerialNumber) {
+      toast.error("Easytech serial Number are required!");
+    }
     const result = await placeOrder(
       selectedAddress,
       PAYMENT_METHODS.CASH_ON_DELIVERY,
@@ -120,7 +125,8 @@ export function CheckoutButton({ cart, selectedAddress }: CheckoutButtonProps) {
       shipping,
       tax,
       orderTotal,
-      false // redirectToCheckout = false
+      easyTechSerialNumber,
+      false
     );
 
     if (result?.success && result.redirectTo) {
@@ -171,6 +177,7 @@ export function CheckoutButton({ cart, selectedAddress }: CheckoutButtonProps) {
               isPlacingOrder ||
               actionType === "checkout" ||
               hasOutOfStockItems ||
+              !easyTechSerialNumber ||
               !selectedAddress ||
               cart.length === 0
             }
@@ -190,7 +197,7 @@ export function CheckoutButton({ cart, selectedAddress }: CheckoutButtonProps) {
             )}
           </Button>
 
-          <Button
+          {/* <Button
             onClick={handlePlaceOrder}
             disabled={
               isPlacingOrder ||
@@ -213,7 +220,7 @@ export function CheckoutButton({ cart, selectedAddress }: CheckoutButtonProps) {
                 Place Order (Pay Later)
               </div>
             )}
-          </Button>
+          </Button> */}
         </div>
 
         <div className="text-center text-xs text-muted-foreground">

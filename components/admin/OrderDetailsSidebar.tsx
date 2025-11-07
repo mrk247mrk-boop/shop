@@ -602,7 +602,7 @@ const OrderDetailsSidebar: React.FC<OrderDetailsSidebarProps> = ({
             </Card>
 
             {/* Employee Tracking */}
-            <Card>
+            {/* <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <User className="w-4 h-4" />
@@ -700,7 +700,7 @@ const OrderDetailsSidebar: React.FC<OrderDetailsSidebarProps> = ({
                   )}
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
 
             {/* Packing & Delivery Notes */}
             <Card>

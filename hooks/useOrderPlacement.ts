@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import useCartStore, { CartItem } from "@/store";
 import { PAYMENT_METHODS, PaymentMethod } from "@/lib/orderStatus";
+import useCartStore, { CartItem } from "@/store";
 import { toast } from "sonner";
-import { OrderConfirmationData } from "@/lib/emailService";
 
 // Extended interface for email preparation that can handle Sanity images
 interface EmailOrderItem {
@@ -72,6 +70,7 @@ export function useOrderPlacement({ user }: UseOrderPlacementProps) {
     shipping: number,
     tax: number,
     total: number,
+    easyTechSerialNumber: string,
     redirectToCheckout: boolean = false // New parameter to control redirect behavior
   ) => {
     if (!selectedAddress) {
@@ -134,6 +133,7 @@ export function useOrderPlacement({ user }: UseOrderPlacementProps) {
         totalAmount: total,
         subtotal,
         shipping,
+        easyTechSerialNumber,
         tax,
       };
 

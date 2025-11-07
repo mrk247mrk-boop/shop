@@ -1,11 +1,11 @@
+import { CheckoutContent } from "@/components/checkout/CheckoutContent";
+import { OrderCheckoutContent } from "@/components/checkout/OrderCheckoutContent";
 import Container from "@/components/Container";
 import DynamicBreadcrumb from "@/components/DynamicBreadcrumb";
-import { ShoppingBag } from "lucide-react";
-import { CheckoutContent } from "@/components/checkout/CheckoutContent";
-import { notFound } from "next/navigation";
 import { getOrderById } from "@/sanity/queries";
 import { currentUser } from "@clerk/nextjs/server";
-import { OrderCheckoutContent } from "@/components/checkout/OrderCheckoutContent";
+import { ShoppingBag } from "lucide-react";
+import { notFound } from "next/navigation";
 
 interface Props {
   searchParams: Promise<{

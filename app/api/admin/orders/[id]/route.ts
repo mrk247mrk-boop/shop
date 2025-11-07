@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
-import { auth, clerkClient } from "@clerk/nextjs/server";
-import { isUserAdmin } from "@/lib/adminUtils";
-import { writeClient } from "@/sanity/lib/client";
-import { sendOrderStatusNotification } from "@/lib/notificationService";
 import { addWalletCredit } from "@/actions/walletActions";
-
+import { isUserAdmin } from "@/lib/adminUtils";
+import { sendOrderStatusNotification } from "@/lib/notificationService";
+import prisma from "@/lib/prisma";
+import { writeClient } from "@/sanity/lib/client";
+import { auth, clerkClient } from "@clerk/nextjs/server";
+import { NextRequest, NextResponse } from "next/server";
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -46,6 +46,7 @@ export async function PATCH(
         totalPrice,
         amountPaid,
         clerkUserId,
+        easyTechSerialNumber,
         user -> {
           clerkUserId,
           email,
@@ -56,7 +57,7 @@ export async function PATCH(
       { id }
     );
 
-    if (!currentOrder) {
+    if (!currentOrder?.easyTechSerialNumber) {
       return NextResponse.json({ error: "Order not found" }, { status: 404 });
     }
 
@@ -237,6 +238,57 @@ export async function PATCH(
           notificationError
         );
         // Don't fail the request if notification fails
+      }
+    }
+    const paymentStatus = await writeClient.fetch(
+      `*[_type == "order" && _id == $id][0] {
+        _id,
+        
+        status,
+        paymentStatus,
+         totalPrice,
+         
+      }`,
+      { id }
+    );
+
+    if (paymentStatus?.paymentStatus === "paid") {
+      try {
+        // Find the EasyTech user
+        const easytechUser = await prisma.user.findFirst({
+          where: { serialNumber: Number(currentOrder.easyTechSerialNumber)! },
+          select: {
+            name: true,
+            id: true,
+          },
+        });
+
+        if (easytechUser) {
+          const orderAmount = Number(paymentStatus.totalPrice) || 0;
+
+          // Calculate commissions
+          const fifteenPercent = orderAmount * 0.15;
+          const sixPercent = fifteenPercent * 0.06;
+
+          // Update user's balances
+          await prisma.user.update({
+            where: { id: easytechUser.id },
+            data: {
+              totalBalance: {
+                increment: sixPercent,
+              },
+            },
+          });
+        } else {
+          console.warn(
+            `⚠️ No EasyTech user found for serial number ${currentOrder.easyTechSerialNumber}`
+          );
+        }
+      } catch (userUpdateError) {
+        console.error(
+          "Error updating EasyTech user balances:",
+          userUpdateError
+        );
       }
     }
 

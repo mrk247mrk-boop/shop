@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { useUser } from "@clerk/nextjs";
 import {
   Calendar,
   CheckCircle,
@@ -17,7 +18,7 @@ import {
   Shield,
   User,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddressEditSidebar from "./AddressEditSidebar";
 import ProfileEditSidebar from "./ProfileEditSidebar";
 
@@ -85,9 +86,46 @@ interface ProfileClientProps {
 
 export default function ProfileClient({ userData }: ProfileClientProps) {
   const { clerk, sanity } = userData;
+  const { user, isLoaded } = useUser();
+  console.log(user);
   const [profileSidebarOpen, setProfileSidebarOpen] = useState(false);
   const [addressSidebarOpen, setAddressSidebarOpen] = useState(false);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
+  // --- inside ProfileClient ---
+
+  const [shippingAddresses, setShippingAddresses] = useState<Address[]>([]);
+
+  // Fetch addresses for this user
+  const refreshAddresses = async () => {
+    if (!user) return;
+    const userEmail = user.emailAddresses[0]?.emailAddress;
+    if (!userEmail) return;
+
+    try {
+      const response = await fetch(
+        `/api/user-data?email=${encodeURIComponent(userEmail)}`
+      );
+      if (!response.ok) throw new Error("Failed to refresh addresses");
+
+      const data = await response.json();
+      // Ensure it's an array
+      setShippingAddresses(data.addresses || []);
+    } catch (err) {
+      console.error("Failed to refresh addresses:", err);
+    }
+  };
+
+  // Only fetch once when user loads
+  useEffect(() => {
+    if (isLoaded && user) {
+      refreshAddresses();
+    }
+  }, [isLoaded, user]);
+
+  const handleAddressUpdated = async () => {
+    await refreshAddresses();
+    setAddressSidebarOpen(false);
+  };
 
   const displayName =
     clerk.firstName && clerk.lastName
@@ -327,6 +365,7 @@ export default function ProfileClient({ userData }: ProfileClientProps) {
       </div>
 
       {/* Shipping Addresses */}
+      {/* Shipping Addresses */}
       <Card className="shadow-lg border-0">
         <CardHeader>
           <div className="flex flex-col md:flex-row gap-4 md:items-center justify-between">
@@ -344,11 +383,11 @@ export default function ProfileClient({ userData }: ProfileClientProps) {
           </div>
         </CardHeader>
         <CardContent>
-          {sanity?.addresses && sanity.addresses.length > 0 ? (
+          {shippingAddresses.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {sanity.addresses.map((address) => (
+              {shippingAddresses.map((address) => (
                 <div
-                  key={address._id}
+                  key={address._id || address.address}
                   className="border rounded-lg p-4 space-y-3 hover:shadow-md transition-shadow"
                 >
                   <div className="flex items-center justify-between">
@@ -371,6 +410,8 @@ export default function ProfileClient({ userData }: ProfileClientProps) {
                     <p>
                       {address.city}, {address.state} {address.zip}
                     </p>
+                    <p>{address.country}</p>
+                    {address.phone && <p>📞 {address.phone}</p>}
                   </div>
 
                   <div className="flex justify-end">

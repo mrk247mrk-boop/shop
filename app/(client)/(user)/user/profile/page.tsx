@@ -1,8 +1,8 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+import ProfileClient from "@/components/profile/ProfileClient";
 import { sanityFetch } from "@/sanity/lib/live";
 import { USER_BY_CLERK_ID_QUERY } from "@/sanity/queries/userQueries";
-import ProfileClient from "@/components/profile/ProfileClient";
+import { auth, currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 interface SanityUser {
   _id: string;
